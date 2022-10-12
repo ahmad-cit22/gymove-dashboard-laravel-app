@@ -42,7 +42,7 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a href="index.html" class="brand-logo">
+            <a href="{{ route('home') }}" class="brand-logo">
                 <img class="logo-abbr" src="{{ asset('dashboard/images/logo.png') }}" alt="">
                 <img class="logo-compact" src="{{ asset('dashboard/images/logo-text.png') }}" alt="">
                 <img class="brand-title" src="{{ asset('dashboard/images/logo-text.png') }}" alt="">
@@ -897,15 +897,18 @@
                             </li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
-
-                                    <img src="{{ Avatar::create(Auth::user()->name)->toBase64() }}" />
+                                    @if (Auth::user()->image == null)
+                                        <img src="{{ Avatar::create(Auth::user()->name)->toBase64() }}" alt="" />
+                                    @else
+                                        <img src="{{ asset('uploads/user/' . Auth::user()->image) }}" alt="" />
+                                    @endif
                                     <div class="header-info">
                                         <span class="text-black"><strong>{{ Auth::user()->name }}</strong></span>
                                         <p class="fs-12 mb-0">Super Admin</p>
                                     </div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="./app-profile.html" class="dropdown-item ai-icon">
+                                    <a href="{{ route('profile') }}" class="dropdown-item ai-icon">
                                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary"
                                             width="18" height="18" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -1083,6 +1086,8 @@
             }, 1000);
         });
     </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @yield('footerBody')
 </body>
 
 </html>
