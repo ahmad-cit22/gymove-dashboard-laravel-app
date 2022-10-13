@@ -333,7 +333,7 @@
                                                                     Info</button>
                                                             </form>
                                                         </div>
-                                                        <div class="form-group col-md-6 mt-5 px-0">
+                                                        <div class="form-group mt-5 px-0">
                                                             <h3 class="text-primary">Security Info</h3>
                                                             <form class="mt-2" action="{{ route('pass.update') }}"
                                                                 method="POST">
