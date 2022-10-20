@@ -40,3 +40,5 @@ Route::post('/profile/update/cover-photo', [UserController::class, 'cover_photo_
 
 Route::get('/category', [CategoryController::class, 'category'])->name('categories');
 Route::post('/category/store', [CategoryController::class, 'category_store'])->name('category.store');
+Route::get('/category/delete/{category_id}', [CategoryController::class, 'category_delete'])->name('category.delete');
+Route::get('/category/restore/{category_id}', [CategoryController::class, 'category_restore'])->name('category.restore');

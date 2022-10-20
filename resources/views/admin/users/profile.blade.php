@@ -494,7 +494,7 @@
     </div>
 @endsection
 
-@section('footerBody')
+@section('footer_body')
     @if (session('updateInfoSuccess'))
         <script>
             Swal.fire(
@@ -510,7 +510,7 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Done!',
-                text: '{{ session('updatePassSuccess') }}',
+                text: "{{ session('updatePassSuccess') }}",
             })
         </script>
     @endif
@@ -520,7 +520,7 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: '{{ session('updatePassErr') }}',
+                text: "{{ session('updatePassErr') }}",
                 footer: '<a href="">Forgot Password?</a>'
             })
         </script>
@@ -532,7 +532,7 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Done!',
-                text: '{{ session('updateDPSuccess') }}',
+                text: "{{ session('updateDPSuccess') }}",
             })
         </script>
     @endif
@@ -542,7 +542,7 @@
             Swal.fire({
                 icon: 'success',
                 title: 'Done!',
-                text: '{{ session('updateCoverSuccess') }}',
+                text: "{{ session('updateCoverSuccess') }}",
             })
         </script>
     @endif

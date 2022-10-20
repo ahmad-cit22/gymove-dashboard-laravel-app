@@ -35,7 +35,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email:rfc,dns'
         ], [
-            'name.required'=> "You can't leave your name field empty!"
+            'name.required' => "You can't leave your name field empty!"
         ]);
 
         User::find(Auth::id())->update([

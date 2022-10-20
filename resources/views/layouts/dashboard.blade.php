@@ -898,9 +898,11 @@
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
                                     @if (Auth::user()->image == null)
-                                        <img src="{{ Avatar::create(Auth::user()->name)->toBase64() }}" alt="" />
+                                        <img src="{{ Avatar::create(Auth::user()->name)->toBase64() }}"
+                                            alt="" />
                                     @else
-                                        <img src="{{ asset('uploads/user/' . Auth::user()->image) }}" alt="" />
+                                        <img src="{{ asset('uploads/user/' . Auth::user()->image) }}"
+                                            alt="" />
                                     @endif
                                     <div class="header-info">
                                         <span class="text-black"><strong>{{ Auth::user()->name }}</strong></span>
@@ -962,9 +964,6 @@
                             <li><a href="{{ route('home') }}">Dashboard</a></li>
                             <li><a href="workout-statistic.html">Workout Statistic</a></li>
                             <li><a href="workoutplan.html">Workout Plan</a></li>
-                            <li><a href="distance-map.html">Distance Map</a></li>
-                            <li><a href="food-menu.html">Diet Food Menu</a></li>
-                            <li><a href="personal-record.html">Personal Record</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
@@ -976,7 +975,7 @@
 
                         </ul>
                     </li>
-                 
+
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="flaticon-381-television"></i>
                             <span class="nav-text">Category</span>
@@ -1011,7 +1010,7 @@
         <!--**********************************
             Footer start
         ***********************************-->
-        <div class="footer">
+        <div class="footer mt-5">
             <div class="copyright">
                 <p>Copyright © Designed &amp; Developed by <a href="http://dexignzone.com/"
                         target="_blank">DexignZone</a> 2020</p>
@@ -1097,7 +1096,7 @@
         });
     </script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @yield('footerBody')
+    @yield('footer_body');
 </body>
 
 </html>
