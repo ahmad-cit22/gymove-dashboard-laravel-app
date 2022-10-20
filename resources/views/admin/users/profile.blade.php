@@ -18,7 +18,7 @@
                                     ''
                                 @else
                                     <img src="{{ asset('uploads/user/' . Auth::user()->cover_photo) }}" alt="cover_photo"
-                                        width="1070" height=400">
+                                        width="1070" height=350">
                                 @endif
                             </div>
                         </div>
@@ -324,11 +324,19 @@
                                                                     placeholder="Update Name"
                                                                     value="{{ Auth::user()->name }}"
                                                                     class="form-control text-black">
+                                                                @error('name')
+                                                                    <strong class="text-danger"
+                                                                        style="display: block">{{ $message }}</strong>
+                                                                @enderror
                                                                 <label class="mt-4 text-primary">Email</label>
-                                                                <input type="email" name="email"
+                                                                <input type="text" name="email"
                                                                     placeholder="Update Email"
                                                                     value="{{ Auth::user()->email }}"
                                                                     class="form-control text-black mb-1">
+                                                                @error('email')
+                                                                    <strong class="text-danger"
+                                                                        style="display: block">{{ $message }}</strong>
+                                                                @enderror
                                                                 <button class="btn btn-primary mt-4" type="submit">Update
                                                                     Info</button>
                                                             </form>
@@ -379,7 +387,7 @@
                                                                 <input type="file" name="profile_picture"
                                                                     class="mt-4 mb-2 text-black">
                                                                 @error('profile_picture')
-                                                                    <strong class="text-danger"
+                                                                    <strong class="text-danger mt-2"
                                                                         style="display: block">{{ $message }}</strong>
                                                                 @enderror
                                                                 <button class="btn btn-primary mt-4" type="submit">Upload
@@ -395,7 +403,7 @@
                                                                 <input type="file" name="cover_photo"
                                                                     class="mt-4 mb-2 text-black">
                                                                 @error('cover_photo')
-                                                                    <strong class="text-danger"
+                                                                    <strong class="text-danger mt-2"
                                                                         style="display: block">{{ $message }}</strong>
                                                                 @enderror
                                                                 <button class="btn btn-primary mt-4" type="submit">Upload

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\frontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -36,3 +37,6 @@ Route::post('/profile/update', [UserController::class, 'profile_update'])->name(
 Route::post('/profile/update/password', [UserController::class, 'password_update'])->name('pass.update');
 Route::post('/profile/update/profile-picture', [UserController::class, 'picture_update'])->name('picture.update');
 Route::post('/profile/update/cover-photo', [UserController::class, 'cover_photo_update'])->name('cover.photo.update');
+
+Route::get('/category', [CategoryController::class, 'category'])->name('categories');
+Route::post('/category/store', [CategoryController::class, 'category_store'])->name('category.store');

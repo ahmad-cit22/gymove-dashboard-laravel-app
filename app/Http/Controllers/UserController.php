@@ -31,6 +31,13 @@ class UserController extends Controller
 
     function profile_update(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email:rfc,dns'
+        ], [
+            'name.required'=> "You can't leave your name field empty!"
+        ]);
+
         User::find(Auth::id())->update([
             'name' => $request->name,
             'email' => $request->email
