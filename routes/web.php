@@ -27,18 +27,25 @@ Route::get('/services', [frontendController::class, 'services']);
 
 Auth::routes();
 
+//home routes
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/users', [UserController::class, 'users'])->name('users');
 
+//user related routes
+Route::get('/users', [UserController::class, 'users'])->name('users');
 Route::get('/users/delete/{user_id}', [UserController::class, 'user_delete'])->name('user.delete');
 
+//profile related routes
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 Route::post('/profile/update', [UserController::class, 'profile_update'])->name('profile.update');
 Route::post('/profile/update/password', [UserController::class, 'password_update'])->name('pass.update');
 Route::post('/profile/update/profile-picture', [UserController::class, 'picture_update'])->name('picture.update');
 Route::post('/profile/update/cover-photo', [UserController::class, 'cover_photo_update'])->name('cover.photo.update');
 
+//category related routes
 Route::get('/category', [CategoryController::class, 'category'])->name('categories');
 Route::post('/category/store', [CategoryController::class, 'category_store'])->name('category.store');
 Route::get('/category/delete/{category_id}', [CategoryController::class, 'category_delete'])->name('category.delete');
 Route::get('/category/restore/{category_id}', [CategoryController::class, 'category_restore'])->name('category.restore');
+Route::get('/category/force-delete/{category_id}', [CategoryController::class, 'category_delete_force'])->name('category.delete.force');
+Route::get('/category/edit/{category_id}', [CategoryController::class, 'category_edit_view'])->name('category.edit.view');
+Route::post('/category/edit/', [CategoryController::class, 'category_edit'])->name('category.edit');

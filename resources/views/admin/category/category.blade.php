@@ -47,7 +47,7 @@
                                                 </svg>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Edit</a>
+                                                <a class="dropdown-item" href="{{ route('category.edit.view', $category->id) }}">Edit</a>
                                                 <a class="dropdown-item"
                                                     href="{{ route('category.delete', $category->id) }}">Delete</a>
                                             </div>
@@ -57,7 +57,7 @@
                             @endforeach
                         </table>
 
-                        <h2 style="margin-top: 100px">Trashed Category List</h2>
+                        <h2 style="margin-top: 100px" class="mb-5">Trashed Category List</h2>
                         <table class="table table-striped text-center">
                             <tr>
                                 <th>SL</th>
@@ -93,7 +93,8 @@
                                                 <a class="dropdown-item"
                                                     href="{{ route('category.restore', $category->id) }}">Restore</a>
                                                 <a class="dropdown-item"
-                                                    href="{{ route('category.delete', $category->id) }}">Delete</a>
+                                                    href="{{ route('category.delete.force', $category->id) }}">Delete
+                                                    Permanently</a>
                                             </div>
                                         </div>
                                     </td>
@@ -113,7 +114,7 @@
                             @csrf
                             <div class="mb-4">
                                 <label class="form-label">Category Name</label>
-                                <input type="text" class="form-control text-black" name="category_name" />
+                                <input type="text" class="form-control text-black" name="category_name" placeholder="Category Name" />
                                 @error('category_name')
                                     <strong class="text-danger" style="display: block">{{ $message }}</strong>
                                 @enderror
@@ -158,6 +159,15 @@
             Swal.fire(
                 'Done!',
                 "{{ session('restoreSuccess') }}",
+                'success'
+            )
+        </script>
+    @endif
+    @if (session('forceDeleteSuccess'))
+        <script>
+            Swal.fire(
+                'Done!',
+                "{{ session('forceDeleteSuccess') }}",
                 'success'
             )
         </script>

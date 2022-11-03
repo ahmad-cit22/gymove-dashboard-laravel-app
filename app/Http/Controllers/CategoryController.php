@@ -34,7 +34,8 @@ class CategoryController extends Controller
 
         $uploaded_file = $request->category_image;
         $extension = $uploaded_file->getClientOriginalExtension();
-        $file_name = Str::lower(str_replace(' ', '-', $request->category_name)) . '-' . rand(100000, 999999) . '.' . $extension;
+        $category_name_lower = Str::lower(str_replace(' ', '-', $request->category_name));
+        $file_name = $category_name_lower . '-' . rand(100000, 999999) . '.' . $extension;
         Image::make($uploaded_file)->resize(100, 100)->save(public_path('uploads/category/' . $file_name));
 
         Category::find($category_id)->update([
@@ -47,12 +48,66 @@ class CategoryController extends Controller
     function category_delete($category_id)
     {
         Category::find($category_id)->delete();
-        return back()->with('delSuccess', 'New category deleted successfully!');
+        return back()->with('delSuccess', 'Category deleted successfully!');
     }
 
     function category_restore($category_id)
     {
         Category::onlyTrashed()->find($category_id)->restore();
-        return back()->with('restoreSuccess', 'New category restored successfully!');
+        return back()->with('restoreSuccess', 'Category restored successfully!');
+    }
+
+    function category_delete_force($category_id)
+    {
+        $file_name = Category::onlyTrashed()->find($category_id)->category_image;
+        $delete_file_path = public_path('uploads/category/' . $file_name);
+        unlink($delete_file_path);
+        Category::onlyTrashed()->find($category_id)->forceDelete();
+        return back()->with('forceDeleteSuccess', 'Category deleted permanently!');
+    }
+
+    function category_edit_view($category_id)
+    {
+        $category = Category::find($category_id);
+        return view('admin.category.edit', [
+            'category' => $category,
+        ]);
+    }
+
+    function category_edit(Request $request)
+    {
+        $request->validate([
+            'category_name' => 'required|unique:categories',
+        ]);
+
+        if ($request->category_image == '') {
+            Category::find($request->category_id)->update([
+                'category_name' => $request->category_name,
+            ]);
+        } else {
+            $request->validate([
+                'category_name' => 'required|unique:categories',
+                'category_image' => 'required|mimes:png,jpg,jpeg,gif,webp|max:1024',
+            ]);
+        }
+
+
+
+        // $category_id = Category::insertGetId([
+        //     'category_name' => $request->category_name,
+        //     'added_by' => Auth::id(),
+        // ]);
+
+        // $uploaded_file = $request->category_image;
+        // $extension = $uploaded_file->getClientOriginalExtension();
+        // $category_name_lower = Str::lower(str_replace(' ', '-', $request->category_name));
+        // $file_name = $category_name_lower . '-' . rand(100000, 999999) . '.' . $extension;
+        // Image::make($uploaded_file)->resize(100, 100)->save(public_path('uploads/category/' . $file_name));
+
+        // Category::find($category_id)->update([
+        //     'category_image' => $file_name
+        // ]);
+
+        return back()->with('addSuccess', 'New category added successfully!');
     }
 }
