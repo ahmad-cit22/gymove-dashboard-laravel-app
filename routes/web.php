@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\frontendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Routing\Events\Routing;
 use Illuminate\Support\Facades\Auth;
@@ -48,4 +49,13 @@ Route::get('/category/delete/{category_id}', [CategoryController::class, 'catego
 Route::get('/category/restore/{category_id}', [CategoryController::class, 'category_restore'])->name('category.restore');
 Route::get('/category/force-delete/{category_id}', [CategoryController::class, 'category_delete_force'])->name('category.delete.force');
 Route::get('/category/edit/{category_id}', [CategoryController::class, 'category_edit_view'])->name('category.edit.view');
-Route::post('/category/edit/', [CategoryController::class, 'category_edit'])->name('category.edit');
+Route::post('/category/edit', [CategoryController::class, 'category_edit'])->name('category.edit');
+
+//sub-category related routes
+Route::get('/category/sub-category', [SubCategoryController::class, 'subCategory'])->name('subCategories');
+Route::post('/category/sub-category/store', [SubCategoryController::class, 'subcategory_store'])->name('subCategory.store');
+Route::get('/category/sub-category/delete/{subCategory_id}', [SubCategoryController::class, 'subcategory_delete'])->name('subCategory.delete');
+Route::get('/category/sub-category/force-delete/{subCategory_id}', [SubCategoryController::class, 'subcategory_force_delete'])->name('subCategory.delete.force');
+Route::get('/category/sub-category/restore/{subCategory_id}', [SubCategoryController::class, 'subcategory_restore'])->name('subCategory.restore');
+Route::get('/category/sub-category/edit/{subCategory_id}', [SubCategoryController::class, 'subCategory_edit_view'])->name('subCategory.edit');
+Route::post('/category/sub-category/update/{subCategory_id}', [SubCategoryController::class, 'subCategory_update'])->name('subCategory.update');

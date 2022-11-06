@@ -76,38 +76,48 @@ class CategoryController extends Controller
 
     function category_edit(Request $request)
     {
-        $request->validate([
-            'category_name' => 'required|unique:categories',
-        ]);
 
-        if ($request->category_image == '') {
-            Category::find($request->category_id)->update([
-                'category_name' => $request->category_name,
+        if (Category::where('id', $request->category_id)->where('category_name', $request->category_name)->exists()) {
+            $request->validate([
+                'category_name' => 'required',
+            ], [
+                'category_name.required' => "You cant leave category name empty!"
             ]);
         } else {
             $request->validate([
                 'category_name' => 'required|unique:categories',
-                'category_image' => 'required|mimes:png,jpg,jpeg,gif,webp|max:1024',
+            ], [
+                'category_name.required' => "You cant leave category name empty!"
             ]);
         }
 
+        if ($request->category_image == '') {
+            Category::find($request->category_id)->update([
+                'category_name' => $request->category_name,
+                'added_by' => Auth::id(),
+            ]);
+            return back()->with('updateSuccess', 'Category updated successfully!');
+        } else {
+            $request->validate([
+                'category_image' => 'required|mimes:png,jpg,jpeg,gif,webp|max:1024',
+            ]);
 
+            $old_image_name = Category::find($request->category_id)->category_image;
+            $old_image_path = public_path('uploads/category/' . $old_image_name);
+            unlink($old_image_path);
 
-        // $category_id = Category::insertGetId([
-        //     'category_name' => $request->category_name,
-        //     'added_by' => Auth::id(),
-        // ]);
+            $uploaded_file = $request->category_image;
+            $extension = $uploaded_file->getClientOriginalExtension();
+            $category_name_lower = Str::lower(str_replace(' ', '-', $request->category_name));
+            $new_img_name = $category_name_lower . '-' . rand(100000, 999999) . '.' . $extension;
+            Image::make($uploaded_file)->resize(100, 100)->save(public_path('uploads/category/' . $new_img_name));
 
-        // $uploaded_file = $request->category_image;
-        // $extension = $uploaded_file->getClientOriginalExtension();
-        // $category_name_lower = Str::lower(str_replace(' ', '-', $request->category_name));
-        // $file_name = $category_name_lower . '-' . rand(100000, 999999) . '.' . $extension;
-        // Image::make($uploaded_file)->resize(100, 100)->save(public_path('uploads/category/' . $file_name));
-
-        // Category::find($category_id)->update([
-        //     'category_image' => $file_name
-        // ]);
-
-        return back()->with('addSuccess', 'New category added successfully!');
+            Category::find($request->category_id)->update([
+                'category_name' => $request->category_name,
+                'category_image' => $new_img_name,
+                'added_by' => Auth::id(),
+            ]);
+            return back()->with('updateSuccess', 'Category updated successfully!');
+        }
     }
 }

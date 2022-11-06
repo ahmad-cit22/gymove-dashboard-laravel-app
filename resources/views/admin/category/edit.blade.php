@@ -4,7 +4,7 @@
     <div class="page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-            <li class="breadcrumb-item"><a href="javascript:void(0)">Categories</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('categories') }}">Categories</a></li>
             <li class="breadcrumb-item active"><a href="javascript:void(0)">Edit</a></li>
         </ol>
     </div>
@@ -30,7 +30,11 @@
                             </div>
                             <div class="mb-4">
                                 <label class="form-label">Update Category Image</label>
-                                <input type="file" class="form-control text-black" name="category_image" />
+                                <input type="file" class="form-control text-black" name="category_image"
+                                    id="category_image" />
+                                    <img id="display_image"
+                                        src="{{ asset('uploads/category/' . $category->category_image) }}"
+                                        alt="category_image" width="80" />
                                 @error('category_image')
                                     <strong class="text-danger" style="display: block">{{ $message }}</strong>
                                 @enderror
@@ -42,4 +46,25 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('footer_body')
+    <script>
+        category_image.onchange = evt => {
+            const [file] = category_image.files
+            if (file) {
+                display_image.src = URL.createObjectURL(file)
+            }
+        }
+    </script>
+
+    @if (session('updateSuccess'))
+        <script>
+            Swal.fire(
+                'Done!',
+                "{{ session('updateSuccess') }}",
+                'success'
+            )
+        </script>
+    @endif
 @endsection

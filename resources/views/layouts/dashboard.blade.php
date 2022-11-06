@@ -982,6 +982,7 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('categories') }}">Category List</a></li>
+                            <li><a href="{{ route('subCategories') }}">Sub-category List</a></li>
 
                         </ul>
                     </li>
