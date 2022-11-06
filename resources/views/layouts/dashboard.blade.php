@@ -972,7 +972,6 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('users') }}">User List</a></li>
-
                         </ul>
                     </li>
 
@@ -983,7 +982,15 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ route('categories') }}">Category List</a></li>
                             <li><a href="{{ route('subCategories') }}">Sub-category List</a></li>
-
+                        </ul>
+                    </li>
+                   
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-television"></i>
+                            <span class="nav-text">Products</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="#">Products List</a></li>
                         </ul>
                     </li>
 

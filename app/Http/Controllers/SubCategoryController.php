@@ -87,7 +87,50 @@ class SubCategoryController extends Controller
 
     function subCategory_update(Request $request, $subCategory_id)
     {
-        echo $request->subcategory_name;
-        echo $subCategory_id + 1;
+        $request->validate([
+            'category_name' => 'required',
+        ]);
+
+        if (SubCategory::where('id', $subCategory_id)->where('subcategory_name', $request->subcategory_name)->exists()) {
+            $request->validate([
+                'subcategory_name' => 'required',
+            ]);
+        } else {
+            $request->validate([
+                'subcategory_name' => 'required|unique:sub_categories',
+            ]);
+        }
+
+        if ($request->subcategory_image == '') {
+            SubCategory::find($subCategory_id)->update([
+                'category_id' => $request->category_name,
+                'subcategory_name' => $request->subcategory_name,
+                'added_by' => Auth::id(),
+            ]);
+            return back()->with('updateSuccess', 'Category updated successfully!');
+        } else {
+            $request->validate([
+                'subcategory_image' => 'required|mimes:png,jpg,jpeg,webp,gif|max:1024'
+            ]);
+
+            $old_img_name = SubCategory::find($subCategory_id)->subcategory_image;
+            $old_img_path = public_path('uploads/subCategory/' . $old_img_name);
+            unlink($old_img_path);
+
+            $uploaded_file = $request->subcategory_image;
+            $img_ext = $uploaded_file->getClientOriginalExtension();
+            $name_lower = Str::lower(str_replace(' ', '-', $request->subcategory_name));
+            $new_img_name = $name_lower . '-' . rand(100000, 999999) . '.' . $img_ext;
+            Image::make($uploaded_file)->resize(100, 100)->save(public_path('uploads/subCategory/' . $new_img_name));
+            echo $new_img_name;
+            SubCategory::find($subCategory_id)->update([
+                'category_id' => $request->category_name,
+                'subcategory_name' => $request->subcategory_name,
+                'subcategory_image' => $new_img_name,
+                'added_by' => Auth::id(),
+            ]);
+            return back()->with('updateSuccess', 'Sub-category updated successfully!');
+        }
     }
 }
+

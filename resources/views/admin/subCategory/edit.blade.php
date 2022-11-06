@@ -41,36 +41,42 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Update Category</button>
                         </form> --}}
-                            <form action="{{ route('subCategory.update', $subCategory->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="mb-4">
-                            <select name="category_name" id="" class="form-control">
-                                <option value=""> --Select Category-- </option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"> {{ $category->category_name }} </option>
-                                @endforeach
-                            </select>
-                            @error('category_name')
-                                <strong class="text-danger" style="display: block">{{ $message }}</strong>
-                            @enderror
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">Sub-category Name</label>
-                            <input type="text" class="form-control text-black" name="subcategory_name"
-                                placeholder="Sub-category Name" />
-                            @error('subcategory_name')
-                                <strong class="text-danger" style="display: block">{{ $message }}</strong>
-                            @enderror
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">Sub-category Image</label>
-                            <input type="file" class="form-control text-black" name="subcategory_image" />
-                            @error('subcategory_image')
-                                <strong class="text-danger" style="display: block">{{ $message }}</strong>
-                            @enderror
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Sub-category</button>
-                    </form>
+                        <form action="{{ route('subCategory.update', $subCategory->id) }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-4">
+                                <select name="category_name" id="" class="form-control">
+                                    <option value=""> --Select Category-- </option>
+                                    @foreach ($categories as $category)
+                                        <option {{ $subCategory->category_id == $category->id ? 'selected' : '' }}
+                                            value="{{ $category->id }}"> {{ $category->category_name }} </option>
+                                    @endforeach
+                                </select>
+                                @error('category_name')
+                                    <strong class="text-danger" style="display: block">{{ $message }}</strong>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Sub-category Name</label>
+                                <input type="text" value="{{ $subCategory->subcategory_name }}"
+                                    class="form-control text-black" name="subcategory_name"
+                                    placeholder="Sub-category Name" />
+                                @error('subcategory_name')
+                                    <strong class="text-danger" style="display: block">{{ $message }}</strong>
+                                @enderror
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Sub-category Image</label>
+                                <input type="file" class="form-control text-black" name="subcategory_image"
+                                    id="subcategory_image" />
+                                <img id="display_image" src="{{ asset('uploads/subCategory/' . $subCategory->subcategory_image) }}"
+                                    alt="subcategory_image" width="80" />
+                                @error('subcategory_image')
+                                    <strong class="text-danger" style="display: block">{{ $message }}</strong>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Sub-category</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -79,9 +85,9 @@
 @endsection
 
 @section('footer_body')
-    {{-- <script>
-        category_image.onchange = evt => {
-            const [file] = category_image.files
+    <script>
+        subcategory_image.onchange = evt => {
+            const [file] = subcategory_image.files
             if (file) {
                 display_image.src = URL.createObjectURL(file)
             }
@@ -96,5 +102,5 @@
                 'success'
             )
         </script>
-    @endif --}}
+    @endif
 @endsection
