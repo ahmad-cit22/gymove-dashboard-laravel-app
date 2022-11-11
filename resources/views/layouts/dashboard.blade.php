@@ -8,10 +8,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Gymove - Fitness Bootstrap Admin Dashboard</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('dashboard/images/favicon.png') }}">
     <!-- include summernote css -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./vendor/chartist/css/chartist.min.css">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="{{ asset('richtexteditor/rte_theme_default.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('dashboard/vendor/chartist/css/chartist.min.css') }}">
     <link href="{{ asset('dashboard/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
     <link href="{{ asset('dashboard/vendor/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
     <link href="{{ asset('dashboard/css/style.css') }}" rel="stylesheet">
@@ -993,7 +995,7 @@
                             <span class="nav-text">Products</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('products') }}">Products List</a></li>
+                            <li><a href="{{ route('products') }}">Add Product</a></li>
                         </ul>
                     </li>
 
@@ -1063,7 +1065,10 @@
     <script src="{{ asset('dashboard/vendor/apexchart/apexchart.js') }}"></script>
 
     <!-- summer note -->
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> --}}
+
+    <script type="text/javascript" src="{{ asset('richtexteditor/rte.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('richtexteditor/plugins/all_plugins.js') }}"></script>
 
     <!-- Dashboard 1 -->
     <script src="{{ asset('dashboard/js/dashboard/dashboard-1.js') }}"></script>

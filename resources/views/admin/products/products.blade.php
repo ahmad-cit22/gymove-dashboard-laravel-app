@@ -128,7 +128,7 @@
 
                         </div>
                         <div class="mt-5">
-                            <button type="submit" class="btn btn-primary" style="width: 30%; margin-left: 200px">Add
+                            <button type="submit" class="btn btn-primary" style="width: 30%; margin-left: 330px">Add
                                 Product</button>
                         </div>
                     </form>
@@ -202,8 +202,9 @@
     </script>
 
     <script>
-        $(document).ready(function() {
-            $('#long_description').summernote();
-        });
+     var editor1 = new RichTextEditor("#long_description");   
+     // $(document).ready(function() {
+        //     $('#long_description').summernote();
+        // });
     </script>
 @endsection
