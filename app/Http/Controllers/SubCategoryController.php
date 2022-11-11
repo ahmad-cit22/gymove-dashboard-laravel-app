@@ -122,7 +122,6 @@ class SubCategoryController extends Controller
             $name_lower = Str::lower(str_replace(' ', '-', $request->subcategory_name));
             $new_img_name = $name_lower . '-' . rand(100000, 999999) . '.' . $img_ext;
             Image::make($uploaded_file)->resize(100, 100)->save(public_path('uploads/subCategory/' . $new_img_name));
-            echo $new_img_name;
             SubCategory::find($subCategory_id)->update([
                 'category_id' => $request->category_name,
                 'subcategory_name' => $request->subcategory_name,

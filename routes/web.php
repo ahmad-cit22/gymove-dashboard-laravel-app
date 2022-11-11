@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\frontendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Routing\Events\Routing;
@@ -59,3 +60,8 @@ Route::get('/category/sub-category/force-delete/{subCategory_id}', [SubCategoryC
 Route::get('/category/sub-category/restore/{subCategory_id}', [SubCategoryController::class, 'subcategory_restore'])->name('subCategory.restore');
 Route::get('/category/sub-category/edit/{subCategory_id}', [SubCategoryController::class, 'subCategory_edit_view'])->name('subCategory.edit');
 Route::post('/category/sub-category/update/{subCategory_id}', [SubCategoryController::class, 'subCategory_update'])->name('subCategory.update');
+
+//product related routes
+Route::get('/products', [ProductController::class, 'product_view'])->name('products');
+Route::post('/getSubcategory', [ProductController::class, 'get_subcategory']);
+Route::post('/products/store', [ProductController::class, 'product_store'])->name('product.store');

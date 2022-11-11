@@ -4,10 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Gymove - Fitness Bootstrap Admin Dashboard</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+    <!-- include summernote css -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./vendor/chartist/css/chartist.min.css">
     <link href="{{ asset('dashboard/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
     <link href="{{ asset('dashboard/vendor/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
@@ -984,13 +987,13 @@
                             <li><a href="{{ route('subCategories') }}">Sub-category List</a></li>
                         </ul>
                     </li>
-                   
+
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="flaticon-381-television"></i>
                             <span class="nav-text">Products</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Products List</a></li>
+                            <li><a href="{{ route('products') }}">Products List</a></li>
                         </ul>
                     </li>
 
@@ -1058,6 +1061,9 @@
 
     <!-- Apex Chart -->
     <script src="{{ asset('dashboard/vendor/apexchart/apexchart.js') }}"></script>
+
+    <!-- summer note -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
     <!-- Dashboard 1 -->
     <script src="{{ asset('dashboard/js/dashboard/dashboard-1.js') }}"></script>
