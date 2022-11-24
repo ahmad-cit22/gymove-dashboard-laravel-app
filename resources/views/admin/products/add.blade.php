@@ -4,7 +4,7 @@
     <div class="page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-            <li class="breadcrumb-item active"><a href="{{ route('product.add') }}">Products</a></li>
+            <li class="breadcrumb-item active"><a href="{{ route('product.add') }}">Add Product</a></li>
         </ol>
     </div>
     <div class="row">
@@ -119,7 +119,7 @@
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label class="form-label">Product Thumbnails</label>
-                                    <input type="file" class="form-control" name="thumbnails" />
+                                    <input type="file" class="form-control" name="thumbnails[]" multiple />
                                     @error('thumbnails')
                                         <strong class="text-danger" style="display: block">{{ $message }}</strong>
                                     @enderror
@@ -141,7 +141,7 @@
 @endsection
 
 @section('footer_body')
-    {{-- @if (session('addSuccess'))
+    @if (session('addSuccess'))
         <script>
             Swal.fire(
                 'Done!',
@@ -150,7 +150,7 @@
             )
         </script>
     @endif
-    @if (session('delSuccess'))
+    {{--  @if (session('delSuccess'))
         <script>
             Swal.fire(
                 'Done!',
@@ -202,9 +202,9 @@
     </script>
 
     <script>
-     var editor1 = new RichTextEditor("#long_description");   
-     // $(document).ready(function() {
-        //     $('#long_description').summernote();
-        // });
+        // var editor1 = new RichTextEditor("#long_description");
+        $(document).ready(function() {
+            $('#long_description').summernote();
+        });
     </script>
 @endsection

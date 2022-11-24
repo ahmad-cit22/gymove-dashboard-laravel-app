@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
+use App\Models\Thumbnail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,7 +13,7 @@ use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
-    function product_view()
+    function product_add_view()
     {
         $categories = Category::all();
         return view('admin.products.add', [
@@ -40,6 +41,8 @@ class ProductController extends Controller
             'discount' => 'numeric',
             'short_description' => 'required',
             'preview' => 'required|mimes:png,jpg,jpeg,gif,webp|max:5120',
+            'thumbnails' => 'required',
+            'thumbnails.*' => 'mimes:png,jpg,jpeg,gif,webp|max:5120',
         ]);
 
         $product_id = Product::insertGetId([
@@ -59,12 +62,33 @@ class ProductController extends Controller
         $uploaded_img = $request->preview;
         $img_ext = $uploaded_img->getClientOriginalExtension();
         $img_name = Str::lower(str_replace(' ', '-', $request->product_name)) . '-' . rand(100000, 999999) . '.' . $img_ext;
-        Image::make($uploaded_img)->resize(100, 100)->save(public_path('uploads/productPreview/' . $img_name));
+        Image::make($uploaded_img)->resize(470,580)->save(public_path('uploads/productPreview/' . $img_name));
 
         Product::find($product_id)->update([
             'preview' => $img_name
         ]);
 
-        return back();
+        $thumbnails = $request->thumbnails;
+        foreach ($thumbnails as $thumbnail) {
+            $img_ext = $thumbnail->getClientOriginalExtension();
+            $img_name = Str::lower(str_replace(' ', '-', $request->product_name)) . '-' . rand(100000, 999999) . '.' . $img_ext;
+            Image::make($thumbnail)->resize(470,580)->save(public_path('uploads/thumbnails/' . $img_name));
+            
+            Thumbnail::insert([
+                'product_id'=> $product_id,
+                'thumbnail' => $img_name,
+                'created_at' => Carbon::now(),
+            ]);
+        }
+
+        return back()->with('addSuccess', 'Product Added Successfully!');
+    }
+
+    function product_list_view()
+    {
+        $products = Product::all();
+        return view('admin.products.product_list', [
+            'products' => $products
+        ]);
     }
 }
