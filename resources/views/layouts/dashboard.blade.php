@@ -995,7 +995,7 @@
                             <span class="nav-text">Products</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('products') }}">Add Product</a></li>
+                            <li><a href="{{ route('product.add') }}">Add Product</a></li>
                         </ul>
                     </li>
 

@@ -62,6 +62,6 @@ Route::get('/category/sub-category/edit/{subCategory_id}', [SubCategoryControlle
 Route::post('/category/sub-category/update/{subCategory_id}', [SubCategoryController::class, 'subCategory_update'])->name('subCategory.update');
 
 //product related routes
-Route::get('/products', [ProductController::class, 'product_view'])->name('products');
+Route::get('/products/add-new-product', [ProductController::class, 'product_view'])->name('product.add');
 Route::post('/getSubcategory', [ProductController::class, 'get_subcategory']);
 Route::post('/products/store', [ProductController::class, 'product_store'])->name('product.store');

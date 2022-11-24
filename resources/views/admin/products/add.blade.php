@@ -4,7 +4,7 @@
     <div class="page-titles">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-            <li class="breadcrumb-item active"><a href="{{ route('categories') }}">Categories</a></li>
+            <li class="breadcrumb-item active"><a href="{{ route('product.add') }}">Products</a></li>
         </ol>
     </div>
     <div class="row">
@@ -59,8 +59,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label class="form-label">Product Price</label>
-                                    <input type="number" class="form-control text-black" name="product_price" />
-                                    @error('product_price')
+                                    <input type="number" class="form-control text-black" name="price" />
+                                    @error('price')
                                         <strong class="text-danger" style="display: block">{{ $message }}</strong>
                                     @enderror
                                 </div>
@@ -79,8 +79,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label class="form-label">Product Brand</label>
-                                    <input type="text" class="form-control text-black" name="product_brand" />
-                                    @error('product_brand')
+                                    <input type="text" class="form-control text-black" name="brand" />
+                                    @error('brand')
                                         <strong class="text-danger" style="display: block">{{ $message }}</strong>
                                     @enderror
                                 </div>
@@ -109,8 +109,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label class="form-label">Product Preview</label>
-                                    <input type="file" class="form-control" name="product_preview" />
-                                    @error('product_preview')
+                                    <input type="file" class="form-control" name="preview" />
+                                    @error('preview')
                                         <strong class="text-danger" style="display: block">{{ $message }}</strong>
                                     @enderror
                                 </div>
@@ -119,8 +119,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label class="form-label">Product Thumbnails</label>
-                                    <input type="file" class="form-control" name="product_thumbnails" />
-                                    @error('product_thumbnails')
+                                    <input type="file" class="form-control" name="thumbnails" />
+                                    @error('thumbnails')
                                         <strong class="text-danger" style="display: block">{{ $message }}</strong>
                                     @enderror
                                 </div>

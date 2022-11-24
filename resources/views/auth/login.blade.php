@@ -33,7 +33,7 @@
                                         <div class="form-group">
                                             <label class="mb-1 text-white"><strong>Email</strong></label>
                                             <input id="email" type="email"
-                                                class="form-control @error('email') is-invalid @enderror" name="email"
+                                                class="form-control text-black @error('email') is-invalid @enderror" name="email"
                                                 value="{{ old('email') }}" autocomplete="email"
                                                 placeholder="hello@example.com">
 
@@ -46,7 +46,7 @@
                                         <div class="form-group">
                                             <label class="mb-1 text-white"><strong>Password</strong></label>
                                             <input id="password" type="password"
-                                                class="form-control @error('password') is-invalid @enderror"
+                                                class="form-control text-black @error('password') is-invalid @enderror"
                                                 name="password" autocomplete="current-password" placeholder="Password">
 
                                             @error('password')

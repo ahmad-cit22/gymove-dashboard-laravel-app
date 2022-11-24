@@ -34,7 +34,7 @@
                                         <div class="form-group">
                                             <label class="mb-1 text-white"><strong>Username</strong></label>
                                             <input type="text" id="name" placeholder="Your Name"
-                                                class="form-control @error('name') is-invalid @enderror" name="name"
+                                                class="form-control text-black @error('name') is-invalid @enderror" name="name"
                                                 value="{{ old('name') }}" autocomplete="name" autofocus>
 
                                             @error('name')
@@ -46,7 +46,7 @@
                                         <div class="form-group">
                                             <label class="mb-1 text-white"><strong>Email</strong></label>
                                             <input id="email" type="email"
-                                                class="form-control @error('email') is-invalid @enderror" name="email"
+                                                class="form-control text-black @error('email') is-invalid @enderror" name="email"
                                                 value="{{ old('email') }}" autocomplete="email"
                                                 placeholder="hello@example.com">
 
@@ -60,7 +60,7 @@
                                         <div class="form-group">
                                             <label class="mb-1 text-white"><strong>Password</strong></label>
                                             <input id="password" type="password"
-                                                class="form-control @error('password') is-invalid @enderror"
+                                                class="form-control text-black @error('password') is-invalid @enderror"
                                                 name="password" autocomplete="new-password"
                                                 placeholder="Create Password">
 
@@ -72,7 +72,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="mb-1 text-white"><strong>Confirm Password</strong></label>
-                                            <input id="password-confirm" type="password" class="form-control"
+                                            <input id="password-confirm" type="password" class="form-control text-black"
                                                 name="password_confirmation" autocomplete="new-password">
                                         </div>
                                         <div class="text-center mt-4">
