@@ -103,8 +103,12 @@ class ProductController extends Controller
     function product_variation_view()
     {
         $categories = Category::all();
+        $colors = Color::all();
+        $sizes = Size::all();
         return view('admin.products.variation', [
-            'categories' => $categories
+            'categories' => $categories,
+            'colors' => $colors,
+            'sizes' => $sizes,
         ]);
     }
 

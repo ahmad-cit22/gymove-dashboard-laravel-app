@@ -67,6 +67,7 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="">Inventory</a>
+                                                <a class="dropdown-item" href="">Edit</a>
                                                 <a class="dropdown-item" href="">Delete</a>
                                             </div>
                                         </div>
