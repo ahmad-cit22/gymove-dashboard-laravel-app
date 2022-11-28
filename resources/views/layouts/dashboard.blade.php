@@ -997,6 +997,7 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ route('product.add') }}">Add Product</a></li>
                             <li><a href="{{ route('product.list') }}">Product List</a></li>
+                            <li><a href="{{ route('product.variation') }}">Variation</a></li>
                         </ul>
                     </li>
 

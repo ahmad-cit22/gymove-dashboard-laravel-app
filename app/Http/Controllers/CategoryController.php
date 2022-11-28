@@ -81,13 +81,13 @@ class CategoryController extends Controller
             $request->validate([
                 'category_name' => 'required',
             ], [
-                'category_name.required' => "You cant leave category name empty!"
+                'category_name.required' => "You can't leave category name empty!"
             ]);
         } else {
             $request->validate([
                 'category_name' => 'required|unique:categories',
             ], [
-                'category_name.required' => "You cant leave category name empty!"
+                'category_name.required' => "You can't leave category name empty!"
             ]);
         }
 

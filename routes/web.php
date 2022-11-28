@@ -66,3 +66,7 @@ Route::get('/products/add-new-product', [ProductController::class, 'product_add_
 Route::post('/getSubcategory', [ProductController::class, 'get_subcategory']);
 Route::post('/products/store', [ProductController::class, 'product_store'])->name('product.store');
 Route::get('/products/list', [ProductController::class, 'product_list_view'])->name('product.list');
+
+Route::get('/products/variation', [ProductController::class, 'product_variation_view'])->name('product.variation');
+Route::post('/colors/store', [ProductController::class, 'color_store'])->name('color.store');
+Route::post('/sizes/store', [ProductController::class, 'size_store'])->name('size.store');

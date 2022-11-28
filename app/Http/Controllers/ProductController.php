@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
+use App\Models\Size;
 use App\Models\SubCategory;
 use App\Models\Thumbnail;
 use Carbon\Carbon;
@@ -33,17 +35,22 @@ class ProductController extends Controller
 
     function product_store(Request $request)
     {
-        $request->validate([
-            'product_category' => 'required',
-            'product_subcategory' => 'required',
-            'product_name' => 'required',
-            'price' => 'required|numeric',
-            'discount' => 'numeric',
-            'short_description' => 'required',
-            'preview' => 'required|mimes:png,jpg,jpeg,gif,webp|max:5120',
-            'thumbnails' => 'required',
-            'thumbnails.*' => 'mimes:png,jpg,jpeg,gif,webp|max:5120',
-        ]);
+        $request->validate(
+            [
+                'product_category' => 'required',
+                'product_subcategory' => 'required',
+                'product_name' => 'required|regex:/^[a-zA-Z\s]+$/',
+                'price' => 'required|numeric',
+                'discount' => 'numeric',
+                'short_description' => 'required',
+                'preview' => 'required|mimes:png,jpg,jpeg,gif,webp|max:5120',
+                'thumbnails' => 'required',
+                'thumbnails.*' => 'mimes:png,jpg,jpeg,gif,webp|max:5120',
+            ],
+            [
+                'product_name.regex' => "Product name can't contain numbers!",
+            ]
+        );
 
         $product_id = Product::insertGetId([
             'product_category' => $request->product_category,
@@ -62,7 +69,7 @@ class ProductController extends Controller
         $uploaded_img = $request->preview;
         $img_ext = $uploaded_img->getClientOriginalExtension();
         $img_name = Str::lower(str_replace(' ', '-', $request->product_name)) . '-' . rand(100000, 999999) . '.' . $img_ext;
-        Image::make($uploaded_img)->resize(470,580)->save(public_path('uploads/productPreview/' . $img_name));
+        Image::make($uploaded_img)->resize(470, 580)->save(public_path('uploads/productPreview/' . $img_name));
 
         Product::find($product_id)->update([
             'preview' => $img_name
@@ -72,10 +79,10 @@ class ProductController extends Controller
         foreach ($thumbnails as $thumbnail) {
             $img_ext = $thumbnail->getClientOriginalExtension();
             $img_name = Str::lower(str_replace(' ', '-', $request->product_name)) . '-' . rand(100000, 999999) . '.' . $img_ext;
-            Image::make($thumbnail)->resize(470,580)->save(public_path('uploads/thumbnails/' . $img_name));
-            
+            Image::make($thumbnail)->resize(470, 580)->save(public_path('uploads/thumbnails/' . $img_name));
+
             Thumbnail::insert([
-                'product_id'=> $product_id,
+                'product_id' => $product_id,
                 'thumbnail' => $img_name,
                 'created_at' => Carbon::now(),
             ]);
@@ -84,11 +91,57 @@ class ProductController extends Controller
         return back()->with('addSuccess', 'Product Added Successfully!');
     }
 
+
     function product_list_view()
     {
         $products = Product::all();
         return view('admin.products.product_list', [
             'products' => $products
         ]);
+    }
+
+    function product_variation_view()
+    {
+        $categories = Category::all();
+        return view('admin.products.variation', [
+            'categories' => $categories
+        ]);
+    }
+
+    function color_store(Request $request)
+    {
+        $request->validate(
+            [
+                'color_name' => 'required|regex:/^[a-zA-Z\s]+$/',
+                'color_code' => 'required',
+            ],
+            [
+                'color_name.regex' => "Color name can't contain numbers!",
+            ]
+        );
+
+        Color::insert([
+            'color_name' => $request->color_name,
+            'color_code' => $request->color_code,
+            'created_at' => Carbon::now(),
+        ]);
+
+        return back()->with('addSuccess', 'Color Added Successfully!');
+    }
+
+    function size_store(Request $request)
+    {
+        $request->validate(
+            [
+                'size_name' => 'required',
+            ]
+        );
+
+        Size::insert([
+            'size_name' => $request->size_name,
+            'created_at' => Carbon::now(),
+        ]);
+
+        return back()->with('addSuccessSize', 'Size Added Successfully!');
     }
 }
