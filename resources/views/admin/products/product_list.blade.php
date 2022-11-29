@@ -153,7 +153,7 @@
                                                 <a class="dropdown-item"
                                                     href="{{ route('product.restore', $product->id) }}">Restore</a>
                                                 <a class="dropdown-item"
-                                                    href="{{ route('product.delete.force', $product->id) }}">Delete</a>
+                                                    href="{{ route('product.delete.force', $product->id) }}">Delete Permanently</a>
                                             </div>
                                         </div>
                                     </td>

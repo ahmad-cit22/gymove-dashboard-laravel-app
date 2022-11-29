@@ -116,7 +116,7 @@ class ProductController extends Controller
 
     function product_delete_force($product_id)
     {
-        $preview_img = Product::find($product_id)->preview;
+        $preview_img = Product::onlyTrashed()->find($product_id)->preview;
         $preview_path = public_path('uploads/productPreview/' . $preview_img);
         unlink($preview_path);
 
@@ -126,7 +126,7 @@ class ProductController extends Controller
             $thumbnail_path = public_path('uploads/thumbnails/' . $thumb);
             unlink($thumbnail_path);
         }
-        Product::find($product_id)->delete();
+        Product::onlyTrashed()->find($product_id)->forceDelete();
         return back()->with('fDelSuccess', 'Product deleted permanently!');
     }
 
