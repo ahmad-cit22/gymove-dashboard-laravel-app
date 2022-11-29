@@ -95,10 +95,58 @@ class ProductController extends Controller
     function product_list_view()
     {
         $products = Product::all();
+        $trashed_products = Product::onlyTrashed()->get();
         return view('admin.products.product_list', [
-            'products' => $products
+            'products' => $products,
+            'trashed_products' => $trashed_products,
         ]);
     }
+
+    function product_delete($product_id)
+    {
+        Product::find($product_id)->delete();
+        return back()->with('delSuccess', 'Product deleted successfully!');
+    }
+
+    function product_restore($product_id)
+    {
+        Product::onlyTrashed()->find($product_id)->restore();
+        return back()->with('restoreSuccess', 'Product restored successfully!');
+    }
+
+    function product_delete_force($product_id)
+    {
+        $preview_img = Product::find($product_id)->preview;
+        $preview_path = public_path('uploads/productPreview/' . $preview_img);
+        unlink($preview_path);
+
+        $thumbnails = Thumbnail::where('product_id', $product_id)->get();
+        foreach ($thumbnails as $key => $thumbnail) {
+            $thumb = $thumbnail->thumbnail;
+            $thumbnail_path = public_path('uploads/thumbnails/' . $thumb);
+            unlink($thumbnail_path);
+        }
+        Product::find($product_id)->delete();
+        return back()->with('fDelSuccess', 'Product deleted permanently!');
+    }
+
+    function product_inventory_view($product_id)
+    {
+        $product = Product::find($product_id);
+        return view('admin.products.product_inventory', [
+            'product' => $product
+        ]);
+    }
+   
+    function inventory_store($product_id)
+    {
+        // $product = Product::find($product_id);
+        // return view('admin.products.product_inventory', [
+        //     'product' => $product
+        // ]);
+    }
+
+
 
     function product_variation_view()
     {

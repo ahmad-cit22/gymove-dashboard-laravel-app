@@ -26,6 +26,7 @@ return new class extends Migration
             $table->longText('short_description')->nullable();
             $table->longText('long_description')->nullable();
             $table->string('preview')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -11,51 +11,56 @@
         <div class="col-lg-8">
             {{-- color list table --}}
             <div class="row">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Color List</h3>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped">
-                            <tr>
-                                <th>SL</th>
-                                <th>Color Name</th>
-                                <th>Color</th>
-                                <th>Action</th>
-                            </tr>
-                            @foreach ($colors as $sl => $color)
+                <div class="col-lg-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Color List</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
                                 <tr>
-                                    <td>{{ $sl + 1 }}</td>
-                                    <td>{{ $color->color_name }}</td>
-                                    <td>
-                                        <span
-                                            style="color: {{ $color->color_code }}; background: {{ $color->color_code }}">Preview</span>
-                                    </td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-primary light sharp"
-                                                data-toggle="dropdown">
-                                                <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                        <rect x="0" y="0" width="24" height="24" />
-                                                        <circle fill="#000000" cx="5" cy="12"
-                                                            r="2" />
-                                                        <circle fill="#000000" cx="12" cy="12"
-                                                            r="2" />
-                                                        <circle fill="#000000" cx="19" cy="12"
-                                                            r="2" />
-                                                    </g>
-                                                </svg>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="">Edit</a>
-                                                <a class="dropdown-item" href="">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <th>SL</th>
+                                    <th>Color Name</th>
+                                    <th class="">Color</th>
+                                    <th>Action</th>
                                 </tr>
-                            @endforeach
-                        </table>
+                                @foreach ($colors as $sl => $color)
+                                    <tr>
+                                        <td>{{ $sl + 1 }}</td>
+                                        <td>{{ $color->color_name }}</td>
+                                        <td>
+                                            <p
+                                                style="width: 50px; height: 50px; border-radius: 50%; background: {{ $color->color_code }}">
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-primary light sharp"
+                                                    data-toggle="dropdown">
+                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <rect x="0" y="0" width="24"
+                                                                height="24" />
+                                                            <circle fill="#000000" cx="5" cy="12"
+                                                                r="2" />
+                                                            <circle fill="#000000" cx="12" cy="12"
+                                                                r="2" />
+                                                            <circle fill="#000000" cx="19" cy="12"
+                                                                r="2" />
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="">Edit</a>
+                                                    <a class="dropdown-item" href="">Delete</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,29 +68,52 @@
 
             {{-- size list table --}}
             <div class="row">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Size List</h3>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped">
-                            <tr>
-                                <th>SL</th>
-                                <th>Size Name</th>
-                                <th>Action</th>
-                            </tr>
-                            {{-- @foreach ($sizes as $sl => $size)
-                            <tr>
-                                <td>{{ $sl + 1 }}</td>
-                                <td>{{ $size->size_name }}</td>
-                                <td>
-                                    <a href="" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                        @endforeach --}}
-                        </table>
-                    </div>
-                </div>
+              <div class="col-lg-10">
+                  <div class="card">
+                      <div class="card-header">
+                          <h3>Size List</h3>
+                      </div>
+                      <div class="card-body">
+                          <table class="table table-striped">
+                              <tr>
+                                  <th>SL</th>
+                                  <th>Size Name</th>
+                                  <th>Action</th>
+                              </tr>
+                               @foreach ($sizes as $sl => $size)
+                                    <tr>
+                                        <td>{{ $sl + 1 }}</td>
+                                        <td>{{ $size->size_name }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-primary light sharp"
+                                                    data-toggle="dropdown">
+                                                    <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                            fill-rule="evenodd">
+                                                            <rect x="0" y="0" width="24"
+                                                                height="24" />
+                                                            <circle fill="#000000" cx="5" cy="12"
+                                                                r="2" />
+                                                            <circle fill="#000000" cx="12" cy="12"
+                                                                r="2" />
+                                                            <circle fill="#000000" cx="19" cy="12"
+                                                                r="2" />
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="">Edit</a>
+                                                    <a class="dropdown-item" href="">Delete</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                          </table>
+                      </div>
+                  </div>
+              </div>
             </div>
             {{-- size list table --}}
         </div>

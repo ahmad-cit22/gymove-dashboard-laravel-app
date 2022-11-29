@@ -12,6 +12,9 @@
     <!-- include summernote css -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     {{-- <link rel="stylesheet" href="{{ asset('richtexteditor/rte_theme_default.css') }}" /> --}}
+    
+    <!-- data table css -->
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('dashboard/vendor/chartist/css/chartist.min.css') }}">
     <link href="{{ asset('dashboard/vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
@@ -1068,6 +1071,9 @@
 
     <!-- summer note -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
 
     {{-- <script type="text/javascript" src="{{ asset('richtexteditor/rte.js') }}"></script>
     <script type="text/javascript" src="{{ asset('richtexteditor/plugins/all_plugins.js') }}"></script> --}}

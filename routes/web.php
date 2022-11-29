@@ -66,6 +66,11 @@ Route::get('/products/add-new-product', [ProductController::class, 'product_add_
 Route::post('/getSubcategory', [ProductController::class, 'get_subcategory']);
 Route::post('/products/store', [ProductController::class, 'product_store'])->name('product.store');
 Route::get('/products/list', [ProductController::class, 'product_list_view'])->name('product.list');
+Route::get('/products/delete/{product_id}', [ProductController::class, 'product_delete'])->name('product.delete');
+Route::get('/products/force-delete/{product_id}', [ProductController::class, 'product_delete_force'])->name('product.delete.force');
+Route::get('/products/restore/{product_id}', [ProductController::class, 'product_restore'])->name('product.restore');
+Route::get('/products/inventory/{product_id}', [ProductController::class, 'product_inventory_view'])->name('product.inventory');
+Route::get('/products/inventory/store', [ProductController::class, 'inventory_store'])->name('inventory.store');
 
 Route::get('/products/variation', [ProductController::class, 'product_variation_view'])->name('product.variation');
 Route::post('/colors/store', [ProductController::class, 'color_store'])->name('color.store');
