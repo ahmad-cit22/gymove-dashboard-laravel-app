@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\frontendController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
@@ -21,16 +21,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/blog', [frontendController::class, 'blog']);
-Route::get('/services', [frontendController::class, 'services']);
+Route::get('/', [FrontendController::class, 'index']);
 
 Auth::routes();
 
 //home routes
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'home'])->name('home');
 
 //user related routes
 Route::get('/users', [UserController::class, 'users'])->name('users');
@@ -71,7 +67,7 @@ Route::get('/products/force-delete/{product_id}', [ProductController::class, 'pr
 Route::get('/products/restore/{product_id}', [ProductController::class, 'product_restore'])->name('product.restore');
 
 Route::get('/products/inventory/{product_id}', [ProductController::class, 'product_inventory_view'])->name('product.inventory');
-Route::get('/products/inventory/store/{product_id}', [ProductController::class, 'inventory_store'])->name('inventory.store');
+Route::post('/products/inventory/store/{product_id}', [ProductController::class, 'inventory_store'])->name('inventory.store');
 
 Route::get('/products/variation', [ProductController::class, 'product_variation_view'])->name('product.variation');
 Route::post('/colors/store', [ProductController::class, 'color_store'])->name('color.store');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Color;
+use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\SubCategory;
@@ -134,11 +135,13 @@ class ProductController extends Controller
     {
         $product = Product::find($product_id);
         $colors = Color::all();
-        $Sizes = Size::all();
+        $sizes = Size::all();
+        $inventories = Inventory::where('product_id', $product_id)->get();
         return view('admin.products.product_inventory', [
             'product' => $product,
             'colors' => $colors,
-            'sizes' => $Sizes,
+            'sizes' => $sizes,
+            'inventories' => $inventories,
         ]);
     }
 
@@ -148,20 +151,24 @@ class ProductController extends Controller
             [
                 'color' => 'required',
                 'size' => 'required',
+                'quantity' => 'required',
             ],
             [
                 'color.required' => "You must select a color!",
                 'size.required' => "You must select a size!",
+                'quantity.required' => "You must enter the quantity!",
             ]
         );
 
-        Color::insert([
-            'color_name' => $request->color_name,
-            'color_code' => $request->color_code,
+        Inventory::insert([
+            'product_id' => $product_id,
+            'color_id' => $request->color,
+            'size_id' => $request->size,
+            'quantity' => $request->quantity,
             'created_at' => Carbon::now(),
         ]);
 
-        return back()->with('addSuccess', 'Color Added Successfully!');
+        return back()->with('InventoryAddSuccess', 'Inventory Added Successfully!');
     }
 
 
