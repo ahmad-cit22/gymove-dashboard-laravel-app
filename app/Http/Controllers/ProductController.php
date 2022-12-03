@@ -133,17 +133,35 @@ class ProductController extends Controller
     function product_inventory_view($product_id)
     {
         $product = Product::find($product_id);
+        $colors = Color::all();
+        $Sizes = Size::all();
         return view('admin.products.product_inventory', [
-            'product' => $product
+            'product' => $product,
+            'colors' => $colors,
+            'sizes' => $Sizes,
         ]);
     }
-   
-    function inventory_store($product_id)
+
+    function inventory_store(Request $request, $product_id)
     {
-        // $product = Product::find($product_id);
-        // return view('admin.products.product_inventory', [
-        //     'product' => $product
-        // ]);
+        $request->validate(
+            [
+                'color' => 'required',
+                'size' => 'required',
+            ],
+            [
+                'color.required' => "You must select a color!",
+                'size.required' => "You must select a size!",
+            ]
+        );
+
+        Color::insert([
+            'color_name' => $request->color_name,
+            'color_code' => $request->color_code,
+            'created_at' => Carbon::now(),
+        ]);
+
+        return back()->with('addSuccess', 'Color Added Successfully!');
     }
 
 
@@ -164,7 +182,8 @@ class ProductController extends Controller
     {
         $request->validate(
             [
-                'color_name' => 'required|regex:/^[a-zA-Z\s]+$/',
+                // 'color_name' => 'required|regex:/^[a-zA-Z\s]+$/',
+                'color_name' => 'required',
                 'color_code' => 'required',
             ],
             [
