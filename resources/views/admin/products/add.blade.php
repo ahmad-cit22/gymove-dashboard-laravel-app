@@ -60,7 +60,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label class="form-label">Product Price</label>
-                                    <input type="number" class="form-control text-black" name="price" value="{{ old('price') }}" />
+                                    <input type="number" class="form-control text-black" name="price"
+                                        value="{{ old('price') }}" />
                                     @error('price')
                                         <strong class="text-danger" style="display: block">{{ $message }}</strong>
                                     @enderror
@@ -70,7 +71,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label class="form-label">Product Discount</label>
-                                    <input type="number" class="form-control text-black" name="discount" value="{{ old('discount') }}" />
+                                    <input type="number" class="form-control text-black" name="discount"
+                                        value="{{ old('discount') }}" />
                                     @error('discount')
                                         <strong class="text-danger" style="display: block">{{ $message }}</strong>
                                     @enderror
@@ -80,7 +82,8 @@
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label class="form-label">Product Brand</label>
-                                    <input type="text" class="form-control text-black" name="brand" value="{{ old('brand') }}" />
+                                    <input type="text" class="form-control text-black" name="brand"
+                                        value="{{ old('brand') }}" />
                                     @error('brand')
                                         <strong class="text-danger" style="display: block">{{ $message }}</strong>
                                     @enderror
@@ -90,7 +93,8 @@
                             <div class="col-lg-12">
                                 <div class="mb-4">
                                     <label class="form-label">Short Description</label>
-                                    <input type="text" class="form-control text-black" name="short_description" value="{{ old('short_description') }}" />
+                                    <input type="text" class="form-control text-black" name="short_description"
+                                        value="{{ old('short_description') }}" />
                                     @error('short_description')
                                         <strong class="text-danger" style="display: block">{{ $message }}</strong>
                                     @enderror
@@ -100,7 +104,8 @@
                             <div class="col-lg-12">
                                 <div class="mb-4">
                                     <label class="form-label">Long Description</label>
-                                    <textarea class="form-control text-black" id="long_description" name="long_description" value="{{ old('long_description') }}"></textarea>
+                                    <textarea class="form-control text-black" id="long_description" name="long_description"
+                                        value="{{ old('long_description') }}"></textarea>
                                     @error('long_description')
                                         <strong class="text-danger" style="display: block">{{ $message }}</strong>
                                     @enderror
@@ -151,36 +156,11 @@
             )
         </script>
     @endif
-    {{--  @if (session('delSuccess'))
-        <script>
-            Swal.fire(
-                'Done!',
-                "{{ session('delSuccess') }}",
-                'success'
-            )
-        </script>
-    @endif
-    @if (session('restoreSuccess'))
-        <script>
-            Swal.fire(
-                'Done!',
-                "{{ session('restoreSuccess') }}",
-                'success'
-            )
-        </script>
-    @endif
-    @if (session('forceDeleteSuccess'))
-        <script>
-            Swal.fire(
-                'Done!',
-                "{{ session('forceDeleteSuccess') }}",
-                'success'
-            )
-        </script>
-    @endif --}}
+
     <script>
         $('#product_category').change(function() {
             let categoryId = $(this).val();
+            alert(categoryId);
 
             $.ajaxSetup({
                 headers: {

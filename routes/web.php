@@ -21,8 +21,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [FrontendController::class, 'index']);
-
 Auth::routes();
 
 //home routes
@@ -61,6 +59,7 @@ Route::post('/category/sub-category/update/{subCategory_id}', [SubCategoryContro
 Route::get('/products/add-new-product', [ProductController::class, 'product_add_view'])->name('product.add');
 Route::post('/getSubcategory', [ProductController::class, 'get_subcategory']);
 Route::post('/products/store', [ProductController::class, 'product_store'])->name('product.store');
+// Route::post('/filterProducts', [ProductController::class, 'filter_products']);
 Route::get('/products/list', [ProductController::class, 'product_list_view'])->name('product.list');
 Route::get('/products/delete/{product_id}', [ProductController::class, 'product_delete'])->name('product.delete');
 Route::get('/products/force-delete/{product_id}', [ProductController::class, 'product_delete_force'])->name('product.delete.force');
@@ -72,3 +71,12 @@ Route::post('/products/inventory/store/{product_id}', [ProductController::class,
 Route::get('/products/variation', [ProductController::class, 'product_variation_view'])->name('product.variation');
 Route::post('/colors/store', [ProductController::class, 'color_store'])->name('color.store');
 Route::post('/sizes/store', [ProductController::class, 'size_store'])->name('size.store');
+
+
+// frontend pages routes
+
+Route::get('/', [FrontendController::class, 'index']);
+
+//product single view
+Route::get('products/details/{slug}', [FrontendController::class, 'product_single_view'])->name('product.single');
+Route::post('/getProductSize', [FrontendController::class, 'get_product_size']);

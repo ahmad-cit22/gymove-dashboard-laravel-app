@@ -42,7 +42,7 @@ class ProductController extends Controller
                 'product_subcategory' => 'required',
                 'product_name' => 'required|regex:/^[a-zA-Z\s]+$/',
                 'price' => 'required|numeric',
-                'discount' => 'numeric',
+                // 'discount' => 'numeric',
                 'short_description' => 'required',
                 'preview' => 'required|mimes:png,jpg,jpeg,gif,webp|max:5120',
                 'thumbnails' => 'required',
@@ -70,7 +70,7 @@ class ProductController extends Controller
         $uploaded_img = $request->preview;
         $img_ext = $uploaded_img->getClientOriginalExtension();
         $img_name = Str::lower(str_replace(' ', '-', $request->product_name)) . '-' . rand(100000, 999999) . '.' . $img_ext;
-        Image::make($uploaded_img)->resize(470, 580)->save(public_path('uploads/productPreview/' . $img_name));
+        Image::make($uploaded_img)->resize(470, '')->save(public_path('uploads/productPreview/' . $img_name));
 
         Product::find($product_id)->update([
             'preview' => $img_name
@@ -80,7 +80,7 @@ class ProductController extends Controller
         foreach ($thumbnails as $thumbnail) {
             $img_ext = $thumbnail->getClientOriginalExtension();
             $img_name = Str::lower(str_replace(' ', '-', $request->product_name)) . '-' . rand(100000, 999999) . '.' . $img_ext;
-            Image::make($thumbnail)->resize(470, 580)->save(public_path('uploads/thumbnails/' . $img_name));
+            Image::make($thumbnail)->resize(470, '')->save(public_path('uploads/thumbnails/' . $img_name));
 
             Thumbnail::insert([
                 'product_id' => $product_id,
@@ -93,13 +93,70 @@ class ProductController extends Controller
     }
 
 
+    // function filter_products(Request $request)
+    // {
+    //     $category_id = $request->category_id;
+    //     $filtered_products = Product::where('category_id', $category_id)->get();
+    //     $str = '';
+    //     foreach ($filtered_products as $key => $product) {
+    //         $str .= '<tr>
+    //                                 <td>{{ $key + 1 }}</td>
+    //                                 <td>{{ $product->rel_to_subcategory->subcategory_name }}</td>
+    //                                 <td>{{ $product->product_name }}</td>
+    //                                 <td>{{ $product->price }}</td>
+    //                                 <td>{{ $product->discount }}</td>
+    //                                 <td>{{ $product->after_discount }}</td>
+    //                                 <td>{{ $product->brand }}</td>
+    //                                 <td>
+    //                                     <img src="'. asset('uploads/productPreview/' . $product->preview) ."
+    //                                         alt="preview_img" width="70">
+    //                                 </td>
+    //                                 <td class="d-flex" style="align-items: center; height: 100px;">
+    //                                     @foreach (App\Models\Thumbnail::where('product_id', $product->id)->get() as $thumb)
+    //                                         <img class="ml-1"
+    //                                             src="{{ asset('uploads/thumbnails/' . $thumb->thumbnail) }}"
+    //                                             alt="thumbnail" width="40">
+    //                                     @endforeach
+    //                                 </td>
+    //                                 <td>
+    //                                     <div class="dropdown">
+    //                                         <button type="button" class="btn btn-primary light sharp"
+    //                                             data-toggle="dropdown">
+    //                                             <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
+    //                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    //                                                     <rect x="0" y="0" width="24" height="24" />
+    //                                                     <circle fill="#000000" cx="5" cy="12"
+    //                                                         r="2" />
+    //                                                     <circle fill="#000000" cx="12" cy="12"
+    //                                                         r="2" />
+    //                                                     <circle fill="#000000" cx="19" cy="12"
+    //                                                         r="2" />
+    //                                                 </g>
+    //                                             </svg>
+    //                                         </button>
+    //                                         <div class="dropdown-menu">
+    //                                             <a class="dropdown-item"
+    //                                                 href="{{ route('product.inventory', $product->id) }}">Inventory</a>
+    //                                             <a class="dropdown-item" href="">Edit</a>
+    //                                             <a class="dropdown-item"
+    //                                                 href="{{ route('product.delete', $product->id) }}">Delete</a>
+    //                                         </div>
+    //                                     </div>
+    //                                 </td>
+    //                             </tr>';
+    //     }
+    //     return $str;
+    // }
+    
     function product_list_view()
     {
         $products = Product::all();
         $trashed_products = Product::onlyTrashed()->get();
+        $categories = Category::all();
         return view('admin.products.product_list', [
             'products' => $products,
             'trashed_products' => $trashed_products,
+            'categories' => $categories,
         ]);
     }
 

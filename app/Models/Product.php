@@ -15,5 +15,8 @@ class Product extends Model
     function rel_to_subcategory(){
         return $this->belongsTo(SubCategory::class, 'product_subcategory');
     }
+    function rel_to_category(){
+        return $this->belongsTo(Category::class, 'product_category');
+    }
 
 }

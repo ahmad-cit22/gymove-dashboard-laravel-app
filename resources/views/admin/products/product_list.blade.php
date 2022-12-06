@@ -11,8 +11,17 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex">
                     <h3>Product List</h3>
+                    {{-- <div class="d-flex align-items-center" style="width: 250px">
+                        <p class="mt-3" style="width: 40%">Filter By</p>
+                        <select class="form-control" name="product_category" id="product_category">
+                            <option value="">-- Select Category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                            @endforeach
+                        </select>
+                    </div> --}}
                 </div>
                 <div class="card-body">
                     {{-- product list table  --}}
@@ -153,7 +162,8 @@
                                                 <a class="dropdown-item"
                                                     href="{{ route('product.restore', $product->id) }}">Restore</a>
                                                 <a class="dropdown-item"
-                                                    href="{{ route('product.delete.force', $product->id) }}">Delete Permanently</a>
+                                                    href="{{ route('product.delete.force', $product->id) }}">Delete
+                                                    Permanently</a>
                                             </div>
                                         </div>
                                     </td>
@@ -178,6 +188,30 @@
         $(document).ready(function() {
             $('#trashed_product_list').DataTable();
         });
+    </script>
+
+    <script>
+        $('#product_category').change(function() {
+            const category_id = $(this).val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            })
+            
+            $.ajax({
+                url: '/filterProducts',
+                type: 'POST',
+                data: {
+                    'category_id': category_id,
+                },
+                success: function (data){
+                    alert(data);
+                }
+            })
+
+        })
     </script>
 
     @if (session('delSuccess'))

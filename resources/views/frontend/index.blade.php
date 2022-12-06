@@ -12,10 +12,11 @@
 
                         <div class="killore--block-link-content">
                             <ul>
-                                @foreach ($top_categories as $top_category)
+                                @foreach ($categories->take(8) as $top_category)
                                     <li><a href="javascript:void(0);"><img class="mb-1"
                                                 src="{{ asset('uploads/category/' . $top_category->category_image) }}"
-                                                alt="category_img" width="25">&nbsp; {{ $top_category->category_name }}</a>
+                                                alt="category_img" width="25">&nbsp;
+                                            {{ $top_category->category_name }}</a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -131,256 +132,60 @@
             </div>
 
             <div class="row align-items-center rows-products">
-                <!-- Single -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                    <div class="product_grid card b-0">
-                        <div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-                        <div class="card-body p-0">
-                            <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                        class="card-img-top" src="assets/img/shop/9.png" alt="..."></a>
+                @foreach ($products->take(8) as $product)
+                    <!-- Single -->
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-6">
+                        <div class="product_grid card b-0">
+                            @if ($product->discount)
+                                <div class="badge bg-danger text-white position-absolute ft-regular ab-right text-upper">
+                                    -{{ $product->discount }}%</div>
+                                <div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">Sale
+                                </div>
+                            @endif
+                            <div class="card-body p-0">
+                                <div class="shop_thumb position-relative d-flex align-items-center" style="height: 333px">
+                                    <a class="card-img-top d-block overflow-hidden" href="{{ route('product.single', $product->slug) }}"><img
+                                            class="card-img-top"
+                                            src="{{ asset('uploads/productPreview/' . $product->preview) }}"
+                                            alt="productPreview"></a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-footer b-0 p-0 pt-2 bg-white d-flex align-items-start justify-content-between">
-                            <div class="text-left">
+                            <div class="card-footer b-0 p-0 pt-2 bg-white d-flex align-items-start justify-content-between">
                                 <div class="text-left">
-                                    <div class="elso_titl"><span class="small">Mobiles</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Killore iPhone 12</a>
-                                    </h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
+                                    <div class="text-left">
+                                        <div class="elso_titl"><span
+                                                class="small">{{ $product->rel_to_subcategory->subcategory_name }}</span>
+                                        </div>
+                                        <h5 class="fs-md mb-0 lh-1 mb-1"><a
+                                                href="{{ route('product.single', $product->slug) }}">{{ $product->product_name }}</a>
+                                        </h5>
+                                        <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <div class="elis_rty">
+                                            @if ($product->discount)
+                                                <span
+                                                    class="ft-medium text-muted line-through fs-md mr-2">&#2547;{{ $product->price }}</span>
+                                            @endif
+                                            <span
+                                                class="ft-bold text-dark fs-sm">&#2547;{{ $product->after_discount }}</span>
+                                        </div>
                                     </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$99 - $129</span></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Single -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                    <div class="product_grid card b-0">
-                        <div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-                        <div class="badge bg-danger text-white position-absolute ft-regular ab-right text-upper">-40%</div>
-                        <div class="card-body p-0">
-                            <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                        class="card-img-top" src="assets/img/shop/10.png" alt="..."></a>
-                            </div>
-                        </div>
-                        <div class="card-footer b-0 p-0 pt-2 bg-white d-flex align-items-start justify-content-between">
-                            <div class="text-left">
-                                <div class="text-left">
-                                    <div class="elso_titl"><span class="small">Headphones</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Killore Headphone</a>
-                                    </h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$129</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                    <div class="product_grid card b-0">
-                        <div class="badge bg-success text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-                        <div class="card-body p-0">
-                            <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                        class="card-img-top" src="assets/img/shop/11.png" alt="..."></a>
-                            </div>
-                        </div>
-                        <div class="card-footer b-0 p-0 pt-2 bg-white d-flex align-items-start justify-content-between">
-                            <div class="text-left">
-                                <div class="text-left">
-                                    <div class="elso_titl"><span class="small">Mobiles</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Ziome iPhone 11</a>
-                                    </h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                    </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$99 - $129</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                    <div class="product_grid card b-0">
-                        <div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">New</div>
-                        <div class="badge bg-danger text-white position-absolute ft-regular ab-right text-upper">-55%</div>
-                        <div class="card-body p-0">
-                            <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                        class="card-img-top" src="assets/img/shop/4.png" alt="..."></a>
-                            </div>
-                        </div>
-                        <div class="card-footer b-0 p-0 pt-2 bg-white d-flex align-items-start justify-content-between">
-                            <div class="text-left">
-                                <div class="text-left">
-                                    <div class="elso_titl"><span class="small">Mobiles</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Pillos Android
-                                            Phone</a></h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$50 - $149</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                    <div class="product_grid card b-0">
-                        <div class="badge bg-success text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-                        <div class="badge bg-danger text-white position-absolute ft-regular ab-right text-upper">-30%</div>
-                        <div class="card-body p-0">
-                            <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                        class="card-img-top" src="assets/img/shop/5.png" alt="..."></a>
-                            </div>
-                        </div>
-                        <div class="card-footer b-0 p-0 pt-2 bg-white d-flex align-items-start justify-content-between">
-                            <div class="text-left">
-                                <div class="text-left">
-                                    <div class="elso_titl"><span class="small">Camera</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Phot Video Camera</a>
-                                    </h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$199</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                    <div class="product_grid card b-0">
-                        <div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">New</div>
-                        <div class="card-body p-0">
-                            <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                        class="card-img-top" src="assets/img/shop/6.png" alt="..."></a>
-                            </div>
-                        </div>
-                        <div class="card-footer b-0 p-0 pt-2 bg-white d-flex align-items-start justify-content-between">
-                            <div class="text-left">
-                                <div class="text-left">
-                                    <div class="elso_titl"><span class="small">Headphone</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">New Croft Headphone</a>
-                                    </h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$110 - $600</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                    <div class="product_grid card b-0">
-                        <div class="badge bg-success text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-                        <div class="card-body p-0">
-                            <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                        class="card-img-top" src="assets/img/shop/7.png" alt="..."></a>
-                            </div>
-                        </div>
-                        <div class="card-footer b-0 p-0 pt-2 bg-white d-flex align-items-start justify-content-between">
-                            <div class="text-left">
-                                <div class="text-left">
-                                    <div class="elso_titl"><span class="small">TV/LCD</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">32 Inch Sony TV</a>
-                                    </h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$99 - $110</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single -->
-                <div class="col-xl-3 col-lg-4 col-md-6 col-6">
-                    <div class="product_grid card b-0">
-                        <div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">New</div>
-                        <div class="badge bg-danger text-white position-absolute ft-regular ab-right text-upper">-60%</div>
-                        <div class="card-body p-0">
-                            <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                        class="card-img-top" src="assets/img/shop/8.png" alt="..."></a>
-                            </div>
-                        </div>
-                        <div class="card-footer b-0 p-0 pt-2 bg-white d-flex align-items-start justify-content-between">
-                            <div class="text-left">
-                                <div class="text-left">
-                                    <div class="elso_titl"><span class="small">Headphone</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Xiomi 13 Headphone</a>
-                                    </h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$119</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
 
             <div class="row justify-content-center">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                     <div class="position-relative text-center">
-                        <a href="shop-style-1.html" class="btn stretched-link borders">Explore More<i
+                        <a href="" class="btn stretched-link borders">Explore More<i
                                 class="lni lni-arrow-right ml-2"></i></a>
                     </div>
                 </div>
@@ -471,22 +276,26 @@
 
             <div class="row align-items-center justify-content-center">
                 @foreach ($categories as $category)
-                      <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                    <div class="cats_side_wrap text-center mx-auto mb-3">
-                        <div class="sl_cat_01">
-                            <div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a
-                                    href="javascript:void(0);" class="d-block"><img src="{{asset('uploads/category/' . $category->category_image)}}"
-                                        class="img-fluid" width="40" alt="category_image"></a></div>
-                        </div>
-                        <div class="sl_cat_02">
-                            <h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">{{$category->category_name}}</a></h6>
+                    <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
+                        <div class="cats_side_wrap text-center mx-auto mb-3">
+                            <div class="sl_cat_01">
+                                <div
+                                    class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border">
+                                    <a href="javascript:void(0);" class="d-block"><img
+                                            src="{{ asset('uploads/category/' . $category->category_image) }}"
+                                            class="img-fluid" width="40" alt="category_image"></a>
+                                </div>
+                            </div>
+                            <div class="sl_cat_02">
+                                <h6 class="m-0 ft-medium fs-sm"><a
+                                        href="javascript:void(0);">{{ $category->category_name }}</a></h6>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
-              
 
-             
+
+
             </div>
 
         </div>
@@ -692,80 +501,43 @@
                         <h4 class="ft-medium">Featured Products</h4>
                     </div>
                     <div class="ftr-content">
-                        <!-- Single Item -->
-                        <div class="product_grid row">
-                            <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                            class="card-img-top" src="assets/img/shop/4.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
-                                <div class="text-left mfliud">
-                                    <div class="elso_titl"><span class="small">iPhones</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">iPhone Smart
-                                            13</a></h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
+                        @foreach ($products->take(3) as $product)
+                            <!-- Single Item -->
+                            <div class="product_grid row">
+                                <div class="col-xl-4 col-lg-5 col-md-5 col-4">
+                                    <div class="shop_thumb position-relative"
+                                            style="height: 111px">
+                                        <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top"
+                                                src="{{ asset('uploads/productPreview/' . $product->preview) }}"
+                                                alt="productPreview" style="width: 90px"></a>
                                     </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$990 - $1100</span></div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Item -->
-                        <div class="product_grid row">
-                            <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                            class="card-img-top" src="assets/img/shop/5.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
-                                <div class="text-left mfliud">
-                                    <div class="elso_titl"><span class="small">Camera</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">Hero Video
-                                            Camera</a></h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
+                                <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
+                                    <div class="text-left mfliud">
+                                        <div class="elso_titl"><span
+                                                class="small">{{ $product->rel_to_subcategory->subcategory_name }}</span>
+                                        </div>
+                                        <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a
+                                                href="shop-single-v1.html">{{ $product->product_name }}</a></h5>
+                                        <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <div class="elis_rty">
+                                            @if ($product->discount)
+                                                <span
+                                                    class="ft-medium text-muted line-through fs-md mr-2">&#2547;{{ $product->price }}</span>
+                                            @endif
+                                            <span
+                                                class="ft-bold text-dark fs-sm">&#2547;{{ $product->after_discount }}</span>
+                                        </div>
                                     </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$600 - $929</span></div>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Single Item -->
-                        <div class="product_grid row">
-                            <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                            class="card-img-top" src="assets/img/shop/6.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
-                                <div class="text-left mfliud">
-                                    <div class="elso_titl"><span class="small">Headphone</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">V1 Jumpsuit
-                                            Headphone</a></h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$99 - $219</span></div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -774,80 +546,43 @@
                         <h4 class="ft-medium">Recent Products</h4>
                     </div>
                     <div class="ftr-content">
-                        <!-- Single Item -->
-                        <div class="product_grid row">
-                            <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                            class="card-img-top" src="assets/img/shop/7.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
-                                <div class="text-left mfliud">
-                                    <div class="elso_titl"><span class="small">TV/LED</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">Smart 43 Inch
-                                            LED</a></h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
+                        @foreach ($latest_products->take(3) as $product)
+                            <!-- Single Item -->
+                            <div class="product_grid row">
+                                <div class="col-xl-4 col-lg-5 col-md-5 col-4">
+                                    <div class="shop_thumb position-relative  d-flex align-items-center"  style="height: 111px">
+                                        <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"
+                                           ><img class="card-img-top"
+                                                src="{{ asset('uploads/productPreview/' . $product->preview) }}"
+                                                alt="productPreview" style="width: 90px"></a>
                                     </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$909 - $1400</span></div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Item -->
-                        <div class="product_grid row">
-                            <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                            class="card-img-top" src="assets/img/shop/8.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
-                                <div class="text-left mfliud">
-                                    <div class="elso_titl"><span class="small">Headphone</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">Vivo Smart
-                                            Headphone</a></h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
+                                <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
+                                    <div class="text-left mfliud">
+                                        <div class="elso_titl"><span
+                                                class="small">{{ $product->rel_to_subcategory->subcategory_name }}</span>
+                                        </div>
+                                        <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a
+                                                href="shop-single-v1.html">{{ $product->product_name }}</a></h5>
+                                        <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star filled"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <div class="elis_rty">
+                                            @if ($product->discount)
+                                                <span
+                                                    class="ft-medium text-muted line-through fs-md mr-2">&#2547;{{ $product->price }}</span>
+                                            @endif
+                                            <span
+                                                class="ft-bold text-dark fs-sm">&#2547;{{ $product->after_discount }}</span>
+                                        </div>
                                     </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$129 - $549</span></div>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Single Item -->
-                        <div class="product_grid row">
-                            <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
-                                            class="card-img-top" src="assets/img/shop/9.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
-                                <div class="text-left mfliud">
-                                    <div class="elso_titl"><span class="small">Mobiles</span></div>
-                                    <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">Micro Android
-                                            Phones</a></h5>
-                                    <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star filled"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$990 - $1949</span></div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
