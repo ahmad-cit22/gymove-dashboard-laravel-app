@@ -160,7 +160,6 @@
     <script>
         $('#product_category').change(function() {
             let categoryId = $(this).val();
-            alert(categoryId);
 
             $.ajaxSetup({
                 headers: {

@@ -183,6 +183,7 @@ class ProductController extends Controller
             $thumb = $thumbnail->thumbnail;
             $thumbnail_path = public_path('uploads/thumbnails/' . $thumb);
             unlink($thumbnail_path);
+            Thumbnail::where('thumbnail', $thumb)->delete();
         }
         Product::onlyTrashed()->find($product_id)->forceDelete();
         return back()->with('fDelSuccess', 'Product deleted permanently!');

@@ -190,7 +190,7 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         $('#product_category').change(function() {
             const category_id = $(this).val();
 
@@ -212,7 +212,7 @@
             })
 
         })
-    </script>
+    </script> --}}
 
     @if (session('delSuccess'))
         <script>
