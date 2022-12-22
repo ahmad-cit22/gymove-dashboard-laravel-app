@@ -76,7 +76,7 @@
                         </div>
 
                         <div class="currency-selector dropdown js-dropdown float-right mr-3">
-                            <a href="javascript:void(0);" class="text-muted medium"><i
+                            <a href="{{ route('customer.reg') }}" class="text-muted medium"><i
                                     class="lni lni-user mr-1"></i>Sign In / Register</a>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                         <div class="headd-sty-wrap d-flex align-items-center justify-content-between py-3">
                             <div class="headd-sty-left d-flex align-items-center">
                                 <div class="headd-sty-01">
-                                    <a class="nav-brand py-0" href="#">
+                                    <a class="nav-brand py-0" href="{{ url('/') }}">
                                         <img src="{{ asset('frontend/img/logo.png') }}" class="logo"
                                             alt="" />
                                     </a>

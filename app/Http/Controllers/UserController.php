@@ -33,7 +33,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email:rfc,dns'
+            'email' => 'required|email:rfc,dns|unique:users'
         ], [
             'name.required' => "You can't leave your name field empty!"
         ]);

@@ -63,10 +63,12 @@
                             </div>
                         </div>
 
+                        {{-- short_description --}}
                         <div class="prt_03 mb-4">
                             <p>{{ $product_details->first()->short_description }}</p>
                         </div>
 
+                        {{-- color --}}
                         <div class="prt_04 mb-2">
                             <p class="d-flex align-items-center mb-0 text-dark ft-medium">Color:</p>
                             <div class="text-left">
@@ -96,7 +98,7 @@
                             </div>
                         </div>
 
-
+{{-- size --}}
                         <div class="prt_04 mb-4">
                             <p class="d-flex align-items-center mb-0 text-dark ft-medium">Size:</p>
                             <div class="text-left pb-0 pt-2" id="productSizes">
@@ -141,8 +143,7 @@
                                 </div>
                                 <div class="col-12 col-lg-auto">
                                     <!-- Wishlist -->
-                                    <button class="btn custom-height btn-default btn-block mb-2 text-dark"
-                                        data-toggle="button">
+                                    <button class="btn custom-height btn-default btn-block mb-2 text-dark" formaction="">
                                         <i class="lni lni-heart mr-2"></i>Wishlist
                                     </button>
                                 </div>

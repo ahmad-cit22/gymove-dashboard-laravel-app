@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -74,9 +75,12 @@ Route::post('/sizes/store', [ProductController::class, 'size_store'])->name('siz
 
 
 // frontend pages routes
-
 Route::get('/', [FrontendController::class, 'index']);
 
 //product single view
 Route::get('products/details/{slug}', [FrontendController::class, 'product_single_view'])->name('product.single');
 Route::post('/getProductSize', [FrontendController::class, 'get_product_size']);
+
+// Customer related routes
+Route::get('/customer-sign-in-login', [CustomerController::class, 'customer_reg_view'])->name('customer.reg');
+Route::post('/customer-sign-in-login/reg', [CustomerController::class, 'customer_signup'])->name('customer.signup');
