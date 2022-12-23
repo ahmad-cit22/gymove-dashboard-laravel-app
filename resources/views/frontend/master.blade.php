@@ -544,6 +544,9 @@
     <script src="{{ asset('frontend/js/snackbar.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jQuery.style.switcher.js') }}"></script>
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->

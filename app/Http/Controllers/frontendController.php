@@ -41,7 +41,6 @@ class FrontendController extends Controller
         $available_sizes = Inventory::where('product_id', $product_details->first()->id)->groupBy('size_id')
             ->selectRaw('sum(size_id) as sum, size_id')
             ->get();
-        $inventories = Inventory::all();
         $thumbnails = Thumbnail::where('product_id', $product_details->first()->id)->get();
         return view('frontend.product_details', [
             'product_details' => $product_details,

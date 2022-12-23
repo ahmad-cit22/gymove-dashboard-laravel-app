@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Routing\Events\Routing;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -84,3 +85,8 @@ Route::post('/getProductSize', [FrontendController::class, 'get_product_size']);
 // Customer related routes
 Route::get('/customer-sign-in-login', [CustomerController::class, 'customer_reg_view'])->name('customer.reg');
 Route::post('/customer-sign-in-login/reg', [CustomerController::class, 'customer_signup'])->name('customer.signup');
+
+//Cart
+
+// Wishlist
+Route::post('/wishlist/store/{product_id}', [WishlistController::class, 'wishlist_store'])->name('wishlist.store');

@@ -36,6 +36,7 @@
                 </div>
 
                 <div class="col-xl-7 col-lg-6 col-md-12 col-sm-12">
+                    <form action="" method="POST">
                     <div class="prd_details pl-3">
 
                         <div class="prt_01 mb-1"><span
@@ -98,7 +99,7 @@
                             </div>
                         </div>
 
-{{-- size --}}
+                        {{-- size --}}
                         <div class="prt_04 mb-4">
                             <p class="d-flex align-items-center mb-0 text-dark ft-medium">Size:</p>
                             <div class="text-left pb-0 pt-2" id="productSizes">
@@ -143,7 +144,8 @@
                                 </div>
                                 <div class="col-12 col-lg-auto">
                                     <!-- Wishlist -->
-                                    <button class="btn custom-height btn-default btn-block mb-2 text-dark" formaction="">
+                                    <button class="btn custom-height btn-default btn-block mb-2 text-dark"
+                                        formaction="{{ route('wishlist.store', $product_details->first()->id) }}">
                                         <i class="lni lni-heart mr-2"></i>Wishlist
                                     </button>
                                 </div>
@@ -169,6 +171,7 @@
                         </div>
 
                     </div>
+                    </form>
                 </div>
             </div>
         </div>

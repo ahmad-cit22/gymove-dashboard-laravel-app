@@ -13,6 +13,8 @@ class Customer extends Authenticatable
 
     protected $guarded = ['id'];
 
+    protected $guard = 'customerAuth';
+
     protected $hidden = [
         'password',
         'remember_token',

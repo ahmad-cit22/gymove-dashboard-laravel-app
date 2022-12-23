@@ -121,3 +121,15 @@
     </section>
     <!-- ======================= Login End ======================== -->
 @endsection
+
+@section('footer_body')
+    @if (session('regSuccess'))
+        <script>
+            Swal.fire(
+                'Done!',
+                "{{ session('regSuccess') }}",
+                'success'
+            )
+        </script>
+    @endif
+@endsection

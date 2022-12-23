@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 
@@ -23,5 +25,14 @@ class CustomerController extends Controller
             'name.required' => 'You must enter your name!',
             'name.regex' => "Name can't contain numbers!",
         ]);
+
+        Customer::insert([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'created_at' => Carbon::now(),
+        ]);
+
+        return back()->with('regSuccess', 'Registration completed successfully!');
     }
 }
