@@ -36,141 +36,143 @@
                 </div>
 
                 <div class="col-xl-7 col-lg-6 col-md-12 col-sm-12">
-                    <form action="" method="POST">
-                    <div class="prd_details pl-3">
+                    <form action="{{ route('cart.wishlist.store', $product_details->first()->id) }}" method="POST">
+                        @csrf
+                        <div class="prd_details pl-3">
 
-                        <div class="prt_01 mb-1"><span
-                                class="text-light bg-info rounded px-2 py-1">{{ $product_details->first()->rel_to_subcategory->subcategory_name }}</span>
-                        </div>
-                        <div class="prt_02 mb-3">
-                            <h2 class="ft-bold mb-1">{{ $product_details->first()->product_name }}</h2>
-                            <div class="text-left">
-                                <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span class="small">(412 Reviews)</span>
-                                </div>
-                                <div class="elis_rty">
-                                    @if ($product_details->first()->discount)
+                            <div class="prt_01 mb-1"><span
+                                    class="text-light bg-info rounded px-2 py-1">{{ $product_details->first()->rel_to_subcategory->subcategory_name }}</span>
+                            </div>
+                            <div class="prt_02 mb-3">
+                                <h2 class="ft-bold mb-1">{{ $product_details->first()->product_name }}</h2>
+                                <div class="text-left">
+                                    <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star"></i>
+                                        <span class="small">(412 Reviews)</span>
+                                    </div>
+                                    <div class="elis_rty">
+                                        @if ($product_details->first()->discount)
+                                            <span
+                                                class="ft-medium text-muted line-through fs-md mr-2">&#2547;{{ $product_details->first()->price }}</span>
+                                        @endif
                                         <span
-                                            class="ft-medium text-muted line-through fs-md mr-2">&#2547;{{ $product_details->first()->price }}</span>
-                                    @endif
-                                    <span
-                                        class="ft-bold theme-cl fs-lg mr-2">&#2547;{{ $product_details->first()->after_discount }}</span>
+                                            class="ft-bold theme-cl fs-lg mr-2">&#2547;{{ $product_details->first()->after_discount }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {{-- short_description --}}
-                        <div class="prt_03 mb-4">
-                            <p>{{ $product_details->first()->short_description }}</p>
-                        </div>
-
-                        {{-- color --}}
-                        <div class="prt_04 mb-2">
-                            <p class="d-flex align-items-center mb-0 text-dark ft-medium">Color:</p>
-                            <div class="text-left">
-                                @foreach ($available_colors as $color)
-                                    @if ($color->color_id === 11)
-                                        <div class="form-check form-option form-check-inline mb-1">
-                                            <input class="form-check-input product_color" type="radio"
-                                                name="product_color" id="color{{ $color->color_id }}"
-                                                value="{{ $color->color_id }}" checked>
-                                            <label class="form-option-label" for="color{{ $color->color_id }}"><span
-                                                    class="form-option-color"
-                                                    style="background: {{ $color->rel_to_color->color_code }}">N/A</span></label>
-                                        </div>
-                                    @else
-                                        <div class="form-check form-option form-check-inline mb-1">
-                                            <input class="form-check-input product_color" type="radio"
-                                                name="product_color" id="color{{ $color->color_id }}"
-                                                value="{{ $color->color_id }}">
-                                            <label class="form-option-label rounded-circle"
-                                                for="color{{ $color->color_id }}"><span
-                                                    class="form-option-color rounded-circle"
-                                                    style="background: {{ $color->rel_to_color->color_code }}"></span></label>
-                                        </div>
-                                    @endif
-                                @endforeach
-
+                            {{-- short_description --}}
+                            <div class="prt_03 mb-4">
+                                <p>{{ $product_details->first()->short_description }}</p>
                             </div>
-                        </div>
 
-                        {{-- size --}}
-                        <div class="prt_04 mb-4">
-                            <p class="d-flex align-items-center mb-0 text-dark ft-medium">Size:</p>
-                            <div class="text-left pb-0 pt-2" id="productSizes">
-                                @foreach ($available_sizes as $size)
-                                    @if ($size->size_id === 13)
-                                        <div class="form-check size-option form-option form-check-inline mb-2">
-                                            <input class="form-check-input" type="radio" name="size"
-                                                id="size{{ $size->size_id }}" checked>
-                                            <label class="form-option-label"
-                                                for="size{{ $size->size_id }}">{{ $size->rel_to_size->size_name }}</label>
-                                        </div>
-                                    @else
-                                        <div class="form-check size-option form-option form-check-inline mb-2">
-                                            <input class="form-check-input" type="radio" name="size"
-                                                id="size{{ $size->size_id }}">
-                                            <label class="form-option-label"
-                                                for="size{{ $size->size_id }}">{{ $size->rel_to_size->size_name }}</label>
-                                        </div>
-                                    @endif
-                                @endforeach
-                                {{-- <p>Please select a color first.</p> --}}
-                            </div>
-                        </div>
+                            {{-- color --}}
+                            <div class="prt_04 mb-2">
+                                <p class="d-flex align-items-center mb-0 text-dark ft-medium">Color:</p>
+                                <div class="text-left">
+                                    @foreach ($available_colors as $color)
+                                        @if ($color->color_id === 1)
+                                            <div class="form-check form-option form-check-inline mb-1">
+                                                <input class="form-check-input product_color" type="radio"
+                                                    name="product_color" id="color{{ $color->color_id }}"
+                                                    value="{{ $color->color_id }}" checked>
+                                                <label class="form-option-label" for="color{{ $color->color_id }}"><span
+                                                        class="form-option-color"
+                                                        style="background: {{ $color->rel_to_color->color_code }}">N/A</span></label>
+                                            </div>
+                                        @else
+                                            <div class="form-check form-option form-check-inline mb-1">
+                                                <input class="form-check-input product_color" type="radio"
+                                                    name="product_color" id="color{{ $color->color_id }}"
+                                                    value="{{ $color->color_id }}">
+                                                <label class="form-option-label rounded-circle"
+                                                    for="color{{ $color->color_id }}"><span
+                                                        class="form-option-color rounded-circle"
+                                                        style="background: {{ $color->rel_to_color->color_code }}"></span></label>
+                                            </div>
+                                        @endif
+                                    @endforeach
 
-                        <div class="prt_05 mb-4">
-                            <div class="form-row mb-7">
-                                <div class="col-12 col-lg-auto">
-                                    <!-- Quantity -->
-                                    <select class="mb-2 custom-select">
-                                        <option value="1" selected="">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                                <div class="col-12 col-lg">
-                                    <!-- Submit -->
-                                    <button type="submit" class="btn btn-block custom-height bg-dark mb-2">
-                                        <i class="lni lni-shopping-basket mr-2"></i>Add to Cart
-                                    </button>
-                                </div>
-                                <div class="col-12 col-lg-auto">
-                                    <!-- Wishlist -->
-                                    <button class="btn custom-height btn-default btn-block mb-2 text-dark"
-                                        formaction="{{ route('wishlist.store', $product_details->first()->id) }}">
-                                        <i class="lni lni-heart mr-2"></i>Wishlist
-                                    </button>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="prt_06">
-                            <p class="mb-0 d-flex align-items-center">
-                                <span class="mr-4">Share:</span>
-                                <a class="d-inline-flex align-items-center justify-content-center p-3 gray circle fs-sm text-muted mr-2"
-                                    href="#!">
-                                    <i class="fab fa-twitter position-absolute"></i>
-                                </a>
-                                <a class="d-inline-flex align-items-center justify-content-center p-3 gray circle fs-sm text-muted mr-2"
-                                    href="#!">
-                                    <i class="fab fa-facebook-f position-absolute"></i>
-                                </a>
-                                <a class="d-inline-flex align-items-center justify-content-center p-3 gray circle fs-sm text-muted"
-                                    href="#!">
-                                    <i class="fab fa-pinterest-p position-absolute"></i>
-                                </a>
-                            </p>
-                        </div>
+                            {{-- size --}}
+                            <div class="prt_04 mb-4">
+                                <p class="d-flex align-items-center mb-0 text-dark ft-medium">Size:</p>
+                                <div class="text-left pb-0 pt-2" id="productSizes">
+                                    @foreach ($available_sizes as $size)
+                                        @if ($size->size_id === 1)
+                                            <div class="form-check size-option form-option form-check-inline mb-2">
+                                                <input class="form-check-input" type="radio" name="size"
+                                                    id="size{{ $size->size_id }}" checked>
+                                                <label class="form-option-label"
+                                                    for="size{{ $size->size_id }}">{{ $size->rel_to_size->size_name }}</label>
+                                            </div>
+                                        @else
+                                            <div class="form-check size-option form-option form-check-inline mb-2">
+                                                <input class="form-check-input" type="radio" name="size"
+                                                    id="size{{ $size->size_id }}">
+                                                <label class="form-option-label"
+                                                    for="size{{ $size->size_id }}">{{ $size->rel_to_size->size_name }}</label>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                    {{-- <p>Please select a color first.</p> --}}
+                                </div>
+                            </div>
 
-                    </div>
+                            <div class="prt_05 mb-4">
+                                <div class="form-row mb-7">
+                                    <div class="col-12 col-lg-auto">
+                                        <!-- Quantity -->
+                                        <select class="mb-2 custom-select" name="quantity">
+                                            <option value="1" selected="">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-lg">
+                                        <!-- Submit -->
+                                        <button type="submit" name="submitBtn" value="1"
+                                            class="btn btn-block custom-height bg-dark mb-2">
+                                            <i class="lni lni-shopping-basket mr-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                    <div class="col-12 col-lg-auto">
+                                        <!-- Wishlist -->
+                                        <button type="submit" name="submitBtn" value="2"
+                                            class="btn custom-height btn-default btn-block mb-2 text-dark">
+                                            <i class="lni lni-heart mr-2"></i>Wishlist
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="prt_06">
+                                <p class="mb-0 d-flex align-items-center">
+                                    <span class="mr-4">Share:</span>
+                                    <a class="d-inline-flex align-items-center justify-content-center p-3 gray circle fs-sm text-muted mr-2"
+                                        href="#!">
+                                        <i class="fab fa-twitter position-absolute"></i>
+                                    </a>
+                                    <a class="d-inline-flex align-items-center justify-content-center p-3 gray circle fs-sm text-muted mr-2"
+                                        href="#!">
+                                        <i class="fab fa-facebook-f position-absolute"></i>
+                                    </a>
+                                    <a class="d-inline-flex align-items-center justify-content-center p-3 gray circle fs-sm text-muted"
+                                        href="#!">
+                                        <i class="fab fa-pinterest-p position-absolute"></i>
+                                    </a>
+                                </p>
+                            </div>
+
+                        </div>
                     </form>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FrontendController;
@@ -86,7 +87,5 @@ Route::post('/getProductSize', [FrontendController::class, 'get_product_size']);
 Route::get('/customer-sign-in-login', [CustomerController::class, 'customer_reg_view'])->name('customer.reg');
 Route::post('/customer-sign-in-login/reg', [CustomerController::class, 'customer_signup'])->name('customer.signup');
 
-//Cart
-
-// Wishlist
-Route::post('/wishlist/store/{product_id}', [WishlistController::class, 'wishlist_store'])->name('wishlist.store');
+//Cart and Wishlist
+Route::post('/cart-wishlist/store/{product_id}', [CartController::class, 'cart_wishlist_store'])->name('cart.wishlist.store');
