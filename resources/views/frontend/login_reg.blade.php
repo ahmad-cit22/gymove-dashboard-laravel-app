@@ -27,8 +27,9 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="mb-3">
                         <h3>Login</h3>
+                        <p>If you are new here, please <span style="font-weight: bold">register</span> first.</p>
                     </div>
-                    <form {{-- action="{{ route('customer.login') }}" --}} method="POST" class="border p-3 rounded">
+                    <form action="{{ route('customer.login') }}" method="POST" class="border p-3 rounded">
                         @csrf
                         <div class="form-group">
                             <label>Email *</label>
@@ -129,6 +130,26 @@
                 'Done!',
                 "{{ session('regSuccess') }}",
                 'success'
+            )
+        </script>
+    @endif
+
+    @if (session('customer_reg'))
+        <script>
+            Swal.fire(
+                'Sorry!',
+                "{{ session('customer_reg') }}",
+                'warning'
+            )
+        </script>
+    @endif
+
+    @if (session('loginFailed'))
+        <script>
+            Swal.fire(
+                'Sorry!',
+                "{{ session('loginFailed') }}",
+                'warning'
             )
         </script>
     @endif

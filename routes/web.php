@@ -85,7 +85,8 @@ Route::post('/getProductSize', [FrontendController::class, 'get_product_size']);
 
 // Customer related routes
 Route::get('/customer-sign-in-login', [CustomerController::class, 'customer_reg_view'])->name('customer.reg');
-Route::post('/customer-sign-in-login/reg', [CustomerController::class, 'customer_signup'])->name('customer.signup');
+Route::post('/customer-reg', [CustomerController::class, 'customer_signup'])->name('customer.signup');
+Route::post('/customer-login', [CustomerController::class, 'customer_login'])->name('customer.login');
 
 //Cart and Wishlist
 Route::post('/cart-wishlist/store/{product_id}', [CartController::class, 'cart_wishlist_store'])->name('cart.wishlist.store');

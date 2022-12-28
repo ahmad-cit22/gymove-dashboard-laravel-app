@@ -77,7 +77,7 @@
 
                         <div class="currency-selector dropdown js-dropdown float-right mr-3">
                             <a href="{{ route('customer.reg') }}" class="text-muted medium"><i
-                                    class="lni lni-user mr-1"></i>Sign In / Register</a>
+                                    class="lni lni-user mr-1"></i>Login / Register</a>
                         </div>
                     </div>
 
