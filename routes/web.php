@@ -94,3 +94,6 @@ Route::get('/customer-logout', [CustomerController::class, 'customer_logout'])->
 Route::post('/cart-wishlist/store/{product_id}', [CartController::class, 'cart_wishlist_store'])->name('cart.wishlist.store');
 Route::get('/cart/remove/{cart_id}', [CartController::class, 'cart_remove'])->name('cart.remove');
 Route::get('/wishlist/remove/{wish_id}', [CartController::class, 'wish_remove'])->name('wish.remove');
+Route::get('/shopping-cart', [CartController::class, 'cart_view'])->name('cart.view');
+Route::get('/wishlist', [CartController::class, 'wish_view'])->name('wish.view');
+Route::post('/cart/update', [CartController::class, 'cart_update'])->name('cart.update');

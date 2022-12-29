@@ -164,12 +164,14 @@
                                     </li>
                                     <li>
                                         <a href="#" onclick="openWishlist()">
-                                            <i class="lni lni-heart"></i><span class="dn-counter">{{ App\Models\Wishlist::where('customer_id', Auth::guard('customerAuth')->id())->count() }}</span>
+                                            <i class="lni lni-heart"></i><span
+                                                class="dn-counter">{{ App\Models\Wishlist::where('customer_id', Auth::guard('customerAuth')->id())->count() }}</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#" onclick="openCart()">
-                                            <i class="lni lni-shopping-basket"></i><span class="dn-counter">{{ App\Models\Cart::where('customer_id', Auth::guard('customerAuth')->id())->count() }}</span>
+                                            <i class="lni lni-shopping-basket"></i><span
+                                                class="dn-counter">{{ App\Models\Cart::where('customer_id', Auth::guard('customerAuth')->id())->count() }}</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -390,19 +392,22 @@
                             <div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
                                 <div class="cart_single d-flex align-items-center">
                                     <div class="cart_selected_single_thumb">
-                                        <a href="#"><img
+                                        <a href="{{ route('product.single', $wishItem->rel_to_product->slug) }}">
+                                            "><img
                                                 src="{{ asset('uploads/productPreview/' . $wishItem->rel_to_product->preview) }}"
                                                 width="60" class="img-fluid" alt="" /></a>
                                     </div>
                                     <div class="ml-2 cart_single_caption pl-2">
-                                        <h4 class="product_title fs-sm ft-medium mb-0 lh-1">
-                                            {{ $wishItem->rel_to_product->product_name }}</h4>
+                                        <a href="{{ route('product.single', $wishItem->rel_to_product->slug) }}">
+                                            <h4 class="product_title fs-sm ft-medium mb-2 lh-1">
+                                                {{ $wishItem->rel_to_product->product_name }}</h4>
+                                        </a>
                                         <h4 class="fs-md ft-medium mb-0 lh-1">TK
                                             {{ $wishItem->rel_to_product->after_discount }}</h4>
                                     </div>
                                 </div>
-                                <div class="fls_last"><a href="{{ route('wish.remove', $wishItem->id) }}" class="close_slide gray"><i
-                                            class="ti-close"></i></a>
+                                <div class="fls_last"><a href="{{ route('wish.remove', $wishItem->id) }}"
+                                        class="close_slide gray"><i class="ti-close"></i></a>
                                 </div>
                             </div>
                         @endforeach
@@ -411,8 +416,8 @@
 
                     <div class="cart_action px-3 py-3">
                         <div class="form-group">
-                            <button type="button" class="btn d-block full-width btn-dark-light">View
-                                Whishlist</button>
+                            <a href="{{ route('wish.view') }}" class="btn d-block full-width btn-dark-light">View
+                                Whishlist</a>
                         </div>
                     </div>
 
@@ -439,14 +444,16 @@
                             <div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
                                 <div class="cart_single d-flex align-items-center">
                                     <div class="cart_selected_single_thumb">
-                                        <a href="#"><img
+                                        <a href="{{ route('product.single', $cartItem->rel_to_product->slug) }}"><img
                                                 src="{{ asset('uploads/productPreview/' . $cartItem->rel_to_product->preview) }}"
                                                 width="60" class="img-fluid" alt="" /></a>
                                     </div>
                                     <div class="ml-2 cart_single_caption pl-2">
-                                        <h4 class="product_title fs-sm ft-medium mb-0 lh-1">
-                                            {{ $cartItem->rel_to_product->product_name }}
-                                        </h4>
+                                        <a href="{{ route('product.single', $cartItem->rel_to_product->slug) }}">
+                                            <h4 class="product_title fs-sm ft-medium mb-0 lh-1">
+                                                {{ $cartItem->rel_to_product->product_name }}
+                                            </h4>
+                                        </a>
                                         <p class="mb-2"><span
                                                 class="text-dark ft-medium small">{{ $cartItem->rel_to_size->size_name }}</span>,
                                             <span
@@ -478,7 +485,8 @@
 
                 <div class="cart_action px-3 py-3">
                     <div class="form-group">
-                        <button type="button" class="btn d-block full-width btn-dark-light">View Cart</button>
+                        <a href="{{ route('cart.view') }}" class="btn d-block full-width btn-dark-light">View
+                            Cart</a>
                     </div>
                 </div>
 
@@ -547,7 +555,7 @@
         }
     </script>
 
-     @if (session('removeSuccess'))
+    @if (session('removeSuccess'))
         <script>
             Swal.fire(
                 'Done!',
@@ -556,12 +564,22 @@
             )
         </script>
     @endif
-  
+
     @if (session('removeWishSuccess'))
         <script>
             Swal.fire(
                 'Done!',
                 "{{ session('removeWishSuccess') }}",
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('wishExists'))
+        <script>
+            Swal.fire(
+                'Done!',
+                "{{ session('wishExists') }}",
                 'success'
             )
         </script>
