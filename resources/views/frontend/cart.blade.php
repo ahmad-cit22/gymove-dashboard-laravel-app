@@ -30,16 +30,16 @@
                     </div>
                 </div>
             </div>
-
+            @php
+                $sub_total = 0;
+            @endphp
             <div class="row justify-content-between">
                 @if ($cartItems->count() > 0)
                     <div class="col-12 col-lg-7 col-md-12">
                         <form action="{{ route('cart.update') }}" method="POST">
                             @csrf
                             <ul class="list-group list-group-sm list-group-flush-y list-group-flush-x mb-4">
-                                @php
-                                    $sub_total = 0;
-                                @endphp
+
                                 @foreach ($cartItems as $cartItem)
                                     <li class="list-group-item">
                                         <div class="row align-items-center">
