@@ -109,14 +109,14 @@
                                     @foreach ($available_sizes as $size)
                                         @if ($size->size_id === 1)
                                             <div class="form-check size-option form-option form-check-inline mb-2">
-                                                <input class="form-check-input" type="radio" name="size"
+                                                <input class="form-check-input product_size" type="radio" name="size"
                                                     value="{{ $size->size_id }}" id="size{{ $size->size_id }}" checked>
                                                 <label class="form-option-label"
                                                     for="size{{ $size->size_id }}">{{ $size->rel_to_size->size_name }}</label>
                                             </div>
                                         @else
                                             <div class="form-check size-option form-option form-check-inline mb-2">
-                                                <input class="form-check-input" type="radio" name="size"
+                                                <input class="form-check-input product_size" type="radio" name="size"
                                                     value="{{ $size->size_id }}" id="size{{ $size->size_id }}">
                                                 <label class="form-option-label"
                                                     for="size{{ $size->size_id }}">{{ $size->rel_to_size->size_name }}</label>
@@ -131,6 +131,19 @@
 
                             <div class="prt_05 mb-4">
                                 <div class="form-row mb-7">
+                                    <div class="col-12 col-lg-auto">
+                                        <!-- Quantity -->
+                                        <select class="mb-2 custom-select" name="quantity" id="quantity">
+                                            <option value="1" selected="">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                        @error('quantity')
+                                            <strong class="text-danger" style="display: block">{{ $message }}</strong>
+                                        @enderror
+                                    </div>
                                     <div class="col-12 col-lg">
                                         <!-- Submit -->
                                         <button type="submit" name="submitBtn" value="1"
@@ -522,5 +535,50 @@
             })
 
         });
+
+        // $('.product_size').click(function() {
+        //     const size_id = $(this).val();
+        //     alert(size_id);
+        //     // $.ajaxSetup({
+        //     //     headers: {
+        //     //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     //     }
+        //     // })
+
+        //     // $.ajax({
+        //     //     url: '/getQuantity',
+        //     //     type: 'POST',
+        //     //     data: {
+        //     //         'product_id': product_id,
+        //     //         'color_id': color_id,
+        //     //         'size_id': size_id,
+        //     //     },
+        //     //     success: function(data) {
+        //     //         // $('#productSizes').html(data);
+        //     //         alert(data);
+        //     //     }
+        //     // })
+
+        // });
     </script>
+
+    @if (session('cartSuccess'))
+        <script>
+            Swal.fire(
+                'Done!',
+                "{{ session('cartSuccess') }}",
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('wishSuccess'))
+        <script>
+            Swal.fire(
+                'Done!',
+                "{{ session('wishSuccess') }}",
+                'success'
+            )
+        </script>
+    @endif
 @endsection

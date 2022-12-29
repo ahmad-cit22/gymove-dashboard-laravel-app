@@ -63,10 +63,25 @@ class FrontendController extends Controller
         $str = '';
         foreach ($available_sizes as $size) {
             $str .=  '<div class="form-check size-option form-option form-check-inline mb-2">
-                                    <input class="form-check-input" type="radio" name="size" value="' . $size->size_id . '" id="size' . $size->size_id . '">
+                                    <input class="form-check-input product_size" type="radio" name="size" value="' . $size->size_id . '" id="size' . $size->size_id . '">
                                     <label class="form-option-label" for="size' . $size->size_id . '">' . $size->rel_to_size->size_name . '</label>
                                 </div>';
         };
         return $str;
     }
+
+    // function get_quantity(Request $request)
+    // {
+    //     $product_id = $request->product_id;
+    //     $color_id = $request->color_id;
+    //     $size_id = $request->size_id;
+
+    //     $available_quantity = Inventory::where('product_id', $product_id)->where('color_id', $color_id)->where('size_id', $size_id)->get()->first();
+    //     // $str =  '<div class="form-check size-option form-option form-check-inline mb-2">
+    //     //                             <input class="form-check-input" type="radio" name="size" value="' . $size->size_id . '" id="size' . $size->size_id . '">
+    //     //                             <label class="form-option-label" for="size' . $size->size_id . '">' . $size->rel_to_size->size_name . '</label>
+    //     //                         </div>';
+    //     // return $str;
+    //     return $available_quantity;
+    // }
 }

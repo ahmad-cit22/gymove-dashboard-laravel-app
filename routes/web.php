@@ -82,6 +82,7 @@ Route::get('/', [FrontendController::class, 'index']);
 //product single view
 Route::get('products/details/{slug}', [FrontendController::class, 'product_single_view'])->name('product.single');
 Route::post('/getProductSize', [FrontendController::class, 'get_product_size']);
+// Route::post('/getQuantity', [FrontendController::class, '/get_quantity']);
 
 // Customer related routes
 Route::get('/customer-sign-in-login', [CustomerController::class, 'customer_reg_view'])->name('customer.reg');
@@ -91,3 +92,5 @@ Route::get('/customer-logout', [CustomerController::class, 'customer_logout'])->
 
 //Cart and Wishlist
 Route::post('/cart-wishlist/store/{product_id}', [CartController::class, 'cart_wishlist_store'])->name('cart.wishlist.store');
+Route::get('/cart/remove/{cart_id}', [CartController::class, 'cart_remove'])->name('cart.remove');
+Route::get('/wishlist/remove/{wish_id}', [CartController::class, 'wish_remove'])->name('wish.remove');
