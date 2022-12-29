@@ -6,6 +6,7 @@ use App\Models\Customer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
 class CustomerController extends Controller
@@ -46,16 +47,17 @@ class CustomerController extends Controller
             'email.email' => 'Invalid email format!',
             'password.required' => 'You must enter your password!',
         ]);
-
-        if (Customer::where('email', $request->email)->where('password', bcrypt($request->password))->exists()) {
-            return redirect('/')->with('loginSuccess', 'Logged in successfully');
+        
+        if (Auth::guard('customerAuth')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect('/')->with('loginSuccess', 'Logged in successfully!');
         } else {
-            return back()->with('loginFailed', 'Wrong credentials given!');
+            return back()->with('loginFailed', 'Wrong credentials given! Try again pls.');
         }
-        // if (Auth::guard('customerAuth')->attempt(['email' => $request->email, 'password' => bcrypt($request->password)])) {
-        //     return redirect('/')->with('loginSuccess', 'Logged in successfully');
-        // } else {
-        //     return back()->with('loginFailed', 'Wrong credentials given!');
-        // }
+    }
+   
+    function customer_logout()
+    {
+       Auth::guard('customerAuth')->logout();
+       return redirect()->route('customer.reg')->with('logoutSuccess', 'Logged out successfully!');
     }
 }

@@ -153,4 +153,14 @@
             )
         </script>
     @endif
+   
+    @if (session('logoutSuccess'))
+        <script>
+            Swal.fire(
+                'Done!',
+                "{{ session('logoutSuccess') }}",
+                'success'
+            )
+        </script>
+    @endif
 @endsection

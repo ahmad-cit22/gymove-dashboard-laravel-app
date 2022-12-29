@@ -17,9 +17,6 @@ return new class extends Migration
             $table->id();
             $table->integer('customer_id');
             $table->integer('product_id');
-            $table->integer('color_id');
-            $table->integer('size_id');
-            $table->integer('quantity');
             $table->timestamps();
         });
     }

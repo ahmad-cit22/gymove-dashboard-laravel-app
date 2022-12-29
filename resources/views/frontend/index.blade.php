@@ -144,8 +144,8 @@
                             @endif
                             <div class="card-body p-0">
                                 <div class="shop_thumb position-relative d-flex align-items-center" style="height: 333px">
-                                    <a class="card-img-top d-block overflow-hidden" href="{{ route('product.single', $product->slug) }}"><img
-                                            class="card-img-top"
+                                    <a class="card-img-top d-block overflow-hidden"
+                                        href="{{ route('product.single', $product->slug) }}"><img class="card-img-top"
                                             src="{{ asset('uploads/productPreview/' . $product->preview) }}"
                                             alt="productPreview"></a>
                                 </div>
@@ -505,9 +505,9 @@
                             <!-- Single Item -->
                             <div class="product_grid row">
                                 <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                                    <div class="shop_thumb position-relative"
-                                            style="height: 111px">
-                                        <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top"
+                                    <div class="shop_thumb position-relative" style="height: 111px">
+                                        <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
+                                                class="card-img-top"
                                                 src="{{ asset('uploads/productPreview/' . $product->preview) }}"
                                                 alt="productPreview" style="width: 90px"></a>
                                     </div>
@@ -550,9 +550,10 @@
                             <!-- Single Item -->
                             <div class="product_grid row">
                                 <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                                    <div class="shop_thumb position-relative  d-flex align-items-center"  style="height: 111px">
-                                        <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"
-                                           ><img class="card-img-top"
+                                    <div class="shop_thumb position-relative  d-flex align-items-center"
+                                        style="height: 111px">
+                                        <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img
+                                                class="card-img-top"
                                                 src="{{ asset('uploads/productPreview/' . $product->preview) }}"
                                                 alt="productPreview" style="width: 90px"></a>
                                     </div>
@@ -591,4 +592,16 @@
         </div>
     </section>
     <!-- ======================= Top Seller Start ============================ -->
+@endsection
+
+@section('footer_body')
+    @if (session('loginSuccess'))
+        <script>
+            Swal.fire(
+                'Welcome!',
+                "{{ session('loginSuccess') }}",
+                'success'
+            )
+        </script>
+    @endif
 @endsection

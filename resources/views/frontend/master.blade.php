@@ -76,8 +76,22 @@
                         </div>
 
                         <div class="currency-selector dropdown js-dropdown float-right mr-3">
-                            <a href="{{ route('customer.reg') }}" class="text-muted medium"><i
-                                    class="lni lni-user mr-1"></i>Login / Register</a>
+                            @auth('customerAuth')
+                                <div class="dropdown">
+                                    <p type="button" class="font-weight-bold" style="cursor: pointer"
+                                        data-toggle="dropdown">
+                                        <i class="far fa-user mr-1"></i> {{ Auth::guard('customerAuth')->user()->name }} <i
+                                            class="fas fa-caret-down ml-1"></i>
+                                    </p>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="">Profile</a>
+                                        <a class="dropdown-item" href="{{ route('customer.logout') }}">Log Out</a>
+                                    </div>
+                                </div>
+                            @else
+                                <a href="{{ route('customer.reg') }}" class="text-muted medium"><i
+                                        class="lni lni-user mr-1"></i>Login / Register</a>
+                            @endauth
                         </div>
                     </div>
 

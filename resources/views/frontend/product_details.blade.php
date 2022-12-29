@@ -77,18 +77,17 @@
                                     @foreach ($available_colors as $color)
                                         @if ($color->color_id === 1)
                                             <div class="form-check form-option form-check-inline mb-1">
-                                                <input class="form-check-input product_color" type="radio"
-                                                    name="product_color" id="color{{ $color->color_id }}"
-                                                    value="{{ $color->color_id }}" checked>
+                                                <input class="form-check-input product_color" type="radio" name="color"
+                                                    id="color{{ $color->color_id }}" value="{{ $color->color_id }}"
+                                                    checked>
                                                 <label class="form-option-label" for="color{{ $color->color_id }}"><span
                                                         class="form-option-color"
                                                         style="background: {{ $color->rel_to_color->color_code }}">N/A</span></label>
                                             </div>
                                         @else
                                             <div class="form-check form-option form-check-inline mb-1">
-                                                <input class="form-check-input product_color" type="radio"
-                                                    name="product_color" id="color{{ $color->color_id }}"
-                                                    value="{{ $color->color_id }}">
+                                                <input class="form-check-input product_color" type="radio" name="color"
+                                                    id="color{{ $color->color_id }}" value="{{ $color->color_id }}">
                                                 <label class="form-option-label rounded-circle"
                                                     for="color{{ $color->color_id }}"><span
                                                         class="form-option-color rounded-circle"
@@ -96,6 +95,9 @@
                                             </div>
                                         @endif
                                     @endforeach
+                                    @error('color')
+                                        <strong class="text-danger" style="display: block">{{ $message }}</strong>
+                                    @enderror
 
                                 </div>
                             </div>
@@ -108,35 +110,27 @@
                                         @if ($size->size_id === 1)
                                             <div class="form-check size-option form-option form-check-inline mb-2">
                                                 <input class="form-check-input" type="radio" name="size"
-                                                    id="size{{ $size->size_id }}" checked>
+                                                    value="{{ $size->size_id }}" id="size{{ $size->size_id }}" checked>
                                                 <label class="form-option-label"
                                                     for="size{{ $size->size_id }}">{{ $size->rel_to_size->size_name }}</label>
                                             </div>
                                         @else
                                             <div class="form-check size-option form-option form-check-inline mb-2">
                                                 <input class="form-check-input" type="radio" name="size"
-                                                    id="size{{ $size->size_id }}">
+                                                    value="{{ $size->size_id }}" id="size{{ $size->size_id }}">
                                                 <label class="form-option-label"
                                                     for="size{{ $size->size_id }}">{{ $size->rel_to_size->size_name }}</label>
                                             </div>
                                         @endif
                                     @endforeach
-                                    {{-- <p>Please select a color first.</p> --}}
+                                    @error('size')
+                                        <strong class="text-danger" style="display: block">{{ $message }}</strong>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="prt_05 mb-4">
                                 <div class="form-row mb-7">
-                                    <div class="col-12 col-lg-auto">
-                                        <!-- Quantity -->
-                                        <select class="mb-2 custom-select" name="quantity">
-                                            <option value="1" selected="">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
                                     <div class="col-12 col-lg">
                                         <!-- Submit -->
                                         <button type="submit" name="submitBtn" value="1"
