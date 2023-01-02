@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
@@ -75,6 +76,9 @@ Route::get('/products/variation', [ProductController::class, 'product_variation_
 Route::post('/colors/store', [ProductController::class, 'color_store'])->name('color.store');
 Route::post('/sizes/store', [ProductController::class, 'size_store'])->name('size.store');
 
+//coupon relate routes
+Route::get('/coupons', [CouponController::class, 'coupon_view'])->name('coupon.view');
+Route::post('/coupons/store', [CouponController::class, 'coupon_store'])->name('coupon.store');
 
 // frontend pages routes
 Route::get('/', [FrontendController::class, 'index']);
