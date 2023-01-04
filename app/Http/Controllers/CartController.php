@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Coupon;
 use App\Models\Inventory;
 use App\Models\Wishlist;
 use Carbon\Carbon;
@@ -65,13 +66,35 @@ class CartController extends Controller
         return back()->with('removeSuccess', 'Removed an item from cart successfully.');
     }
 
-    function cart_view()
+    function cart_view(Request $request)
     {
-
         if (Auth::guard('customerAuth')->check()) {
             $cartItems = Cart::where('customer_id', Auth::guard('customerAuth')->id())->get();
+            $coupon = $request->coupon_code;
+            $message = '';
+            $type = '';
+
+
+            if ($coupon) {
+                if (Coupon::where('coupon_code', $coupon)->exists()) {
+                    if (Carbon::now()->format('Y-m-d') < Coupon::where('coupon_code', $coupon)->first()->validity) {
+                        $discount = 100;
+                    } else {
+                        $discount = 0;
+                        $message = 'This coupon code invalid';
+                    }
+                } else {
+                    $discount = 0;
+                    $message = 'This coupon code does not exist.';
+                }
+            } else {
+                $discount = 0;
+            }
+
             return view('frontend.cart', [
                 'cartItems' => $cartItems,
+                'discount' => $discount,
+                'message' => $message,
             ]);
         } else {
             return redirect()->route('customer.reg')->with('customer_reg', 'You have to login first in order to proceed.');
@@ -107,7 +130,5 @@ class CartController extends Controller
         } else {
             return redirect()->route('customer.reg')->with('customer_reg', 'You have to login first in order to proceed.');
         }
-        
-       
     }
 }

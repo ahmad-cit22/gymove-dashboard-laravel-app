@@ -79,6 +79,11 @@ Route::post('/sizes/store', [ProductController::class, 'size_store'])->name('siz
 //coupon relate routes
 Route::get('/coupons', [CouponController::class, 'coupon_view'])->name('coupon.view');
 Route::post('/coupons/store', [CouponController::class, 'coupon_store'])->name('coupon.store');
+Route::get('/coupons/edit/{coupon_id}', [CouponController::class, 'coupon_edit_view'])->name('coupon.edit');
+Route::post('/coupons/update/{coupon_id}', [CouponController::class, 'coupon_update'])->name('coupon.update');
+Route::get('/coupons/delete/{coupon_id}', [CouponController::class, 'coupon_delete'])->name('coupon.delete');
+Route::get('/coupons/force-delete/{coupon_id}', [CouponController::class, 'coupon_delete_force'])->name('coupon.delete.force');
+Route::get('/coupons/restore/{coupon_id}', [CouponController::class, 'coupon_restore'])->name('coupon.restore');
 
 // frontend pages routes
 Route::get('/', [FrontendController::class, 'index']);

@@ -97,17 +97,23 @@
                         <div class="mt-3 row align-items-end justify-content-between mb-10 mb-md-0">
                             <div class="col-12">
                                 <!-- Coupon -->
-                                <form class="mb-7 mb-md-0">
+                                <form class="mb-7 mb-md-0" action="{{ route('cart.view') }}" method="GET">
                                     <label class="fs-sm ft-medium text-dark">Coupon code:</label>
                                     <div class="row form-row display-flex justify-content-between">
                                         <div class="col">
-                                            <input class="form-control" type="text" placeholder="Enter coupon code*">
+                                            <input class="form-control" type="text" placeholder="Enter coupon code*"
+                                                name="coupon_code">
                                         </div>
                                         <div class="col-auto">
                                             <button class="btn btn-dark" type="submit">Apply</button>
                                         </div>
                                     </div>
+                                    @if ($message)
+                                        <p class="mt-3 alert alert-warning">Sorry! {{ $message }}</p>
+                                    @endif
                                 </form>
+                                <!-- Coupon -->
+
                             </div>
 
                         </div>
@@ -126,7 +132,8 @@
                                         {{ $sub_total }}</span>
                                 </li>
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
-                                    <span>Discount</span> <span class="ml-auto text-dark ft-medium">TK 0</span>
+                                    <span>Discount</span> <span class="ml-auto text-dark ft-medium">TK
+                                        {{ $discount }}</span>
                                 </li>
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
                                     <span>Total</span> <span class="ml-auto text-dark ft-medium">TK
@@ -160,6 +167,16 @@
                 'Done!',
                 "{{ session('updateSuccess') }}",
                 'success'
+            )
+        </script>
+    @endif
+
+    @if ($message)
+        <script>
+            Swal.fire(
+                'Sorry!',
+                "{{ $message }}",
+                'warning'
             )
         </script>
     @endif
