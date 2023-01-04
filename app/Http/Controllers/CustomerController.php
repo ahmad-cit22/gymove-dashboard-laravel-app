@@ -47,17 +47,38 @@ class CustomerController extends Controller
             'email.email' => 'Invalid email format!',
             'password.required' => 'You must enter your password!',
         ]);
-        
+
         if (Auth::guard('customerAuth')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect('/')->with('loginSuccess', 'Logged in successfully!');
         } else {
             return back()->with('loginFailed', 'Wrong credentials given! Try again pls.');
         }
     }
-   
+
     function customer_logout()
     {
-       Auth::guard('customerAuth')->logout();
-       return redirect()->route('customer.reg')->with('logoutSuccess', 'Logged out successfully!');
+        Auth::guard('customerAuth')->logout();
+        return redirect()->route('customer.reg')->with('logoutSuccess', 'Logged out successfully!');
+    }
+
+    function customer_update(Request $request)
+    {
+        // $request->validate([
+        //     'name' => 'required|regex:/^[a-zA-Z\s]+$/|min:3',
+        //     'email' => 'required|email:rfc,dns|unique:customers',
+        //     'password' => ['required', Password::min(8)->letters()->mixedCase()->symbols()->numbers(), 'confirmed'],
+        //     'password_confirmation' => 'required',
+        // ], [
+        //     'name.required' => 'You must enter your name!',
+        //     'name.regex' => "Name can't contain numbers!",
+        // ]);
+
+        // Customer::find()([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'password' => bcrypt($request->password),
+        //     'created_at' => Carbon::now(),
+        // ]);
+        // return back()->with('regSuccess', 'Registration completed successfully!');
     }
 }

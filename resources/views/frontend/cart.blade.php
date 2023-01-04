@@ -122,6 +122,25 @@
                     <p class="mx-auto text-danger">Your cart is currently empty!</p>
                 @endif
 
+                @php
+                    $discount = 0;
+                    if ($type === 1) {
+                        if ($limit >= ($sub_total * $amount) / 100) {
+                            $discount = ($sub_total * $amount) / 100;
+                        } else {
+                            $discount = $limit;
+                        }
+                    } else {
+                        $discount = $amount;
+                    }
+                    $total = $sub_total - $discount;
+                    
+                    session([
+                        'sub_total' => $sub_total,
+                        'discount' => $discount,
+                        'total' => $total,
+                    ]);
+                @endphp
 
                 <div class="col-12 col-md-12 col-lg-4">
                     <div class="card mb-4 gray mfliud">
@@ -129,15 +148,15 @@
                             <ul class="list-group list-group-sm list-group-flush-y list-group-flush-x">
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
                                     <span>Subtotal</span> <span class="ml-auto text-dark ft-medium">Tk
-                                        {{ $sub_total }}</span>
+                                        {{ number_format($sub_total, 2) }}</span>
                                 </li>
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
                                     <span>Discount</span> <span class="ml-auto text-dark ft-medium">TK
-                                        {{ $discount }}</span>
+                                        {{ number_format($discount, 2) }}</span>
                                 </li>
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
                                     <span>Total</span> <span class="ml-auto text-dark ft-medium">TK
-                                        {{ $sub_total }}</span>
+                                        {{ number_format(round($total), 2) }}</span>
                                 </li>
                                 <li class="list-group-item fs-sm text-center">
                                     Shipping cost calculated at Checkout *
@@ -146,15 +165,14 @@
                         </div>
                     </div>
 
-                    <a class="btn btn-block btn-dark mb-3" href="checkout.html">Proceed to Checkout</a>
+                    <a class="btn btn-block btn-dark mb-3" href="{{ route('checkout.view') }}">Proceed to Checkout</a>
 
-                    <a class="btn-link text-dark ft-medium" href="shop.html">
+                    <a class="btn-link text-dark ft-medium" href="{{ url('/') }}">
                         <i class="ti-back-left mr-2"></i> Continue Shopping
                     </a>
                 </div>
 
             </div>
-
         </div>
     </section>
     <!-- ======================= Product Detail End ======================== -->
@@ -166,6 +184,16 @@
             Swal.fire(
                 'Done!',
                 "{{ session('updateSuccess') }}",
+                'success'
+            )
+        </script>
+    @endif
+
+    @if ($couponSuccess)
+        <script>
+            Swal.fire(
+                'Done!',
+                "{{ $couponSuccess }}<br>You got <strong class='text-success'>TK {{ number_format($discount) }}</strong> discount.",
                 'success'
             )
         </script>

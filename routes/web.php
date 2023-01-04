@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FrontendController;
@@ -96,13 +97,17 @@ Route::post('/getProductSize', [FrontendController::class, 'get_product_size']);
 // Customer related routes
 Route::get('/customer-sign-in-login', [CustomerController::class, 'customer_reg_view'])->name('customer.reg');
 Route::post('/customer-reg', [CustomerController::class, 'customer_signup'])->name('customer.signup');
+Route::post('/customer/update', [CustomerController::class, 'customer_update'])->name('customer.update');
 Route::post('/customer-login', [CustomerController::class, 'customer_login'])->name('customer.login');
 Route::get('/customer-logout', [CustomerController::class, 'customer_logout'])->name('customer.logout');
 
-//Cart and Wishlist
+//Cart and Wishlist related routes
 Route::post('/cart-wishlist/store/{product_id}', [CartController::class, 'cart_wishlist_store'])->name('cart.wishlist.store');
 Route::get('/cart/remove/{cart_id}', [CartController::class, 'cart_remove'])->name('cart.remove');
 Route::get('/wishlist/remove/{wish_id}', [CartController::class, 'wish_remove'])->name('wish.remove');
 Route::get('/shopping-cart', [CartController::class, 'cart_view'])->name('cart.view');
 Route::get('/wishlist', [CartController::class, 'wish_view'])->name('wish.view');
 Route::post('/cart/update', [CartController::class, 'cart_update'])->name('cart.update');
+
+//Checkout related routes
+Route::get('/checkout-page', [CheckoutController::class, 'checkout_view'])->name('checkout.view');

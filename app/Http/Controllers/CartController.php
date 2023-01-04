@@ -70,31 +70,39 @@ class CartController extends Controller
     {
         if (Auth::guard('customerAuth')->check()) {
             $cartItems = Cart::where('customer_id', Auth::guard('customerAuth')->id())->get();
+
             $coupon = $request->coupon_code;
             $message = '';
+            $couponSuccess = '';
             $type = '';
-
+            $limit = '';
 
             if ($coupon) {
                 if (Coupon::where('coupon_code', $coupon)->exists()) {
                     if (Carbon::now()->format('Y-m-d') < Coupon::where('coupon_code', $coupon)->first()->validity) {
-                        $discount = 100;
+                        $type = Coupon::where('coupon_code', $coupon)->first()->type;
+                        $amount = Coupon::where('coupon_code', $coupon)->first()->amount;
+                        $limit = Coupon::where('coupon_code', $coupon)->first()->limit;
+                        $couponSuccess = 'Coupon code applied successfully!';
                     } else {
-                        $discount = 0;
-                        $message = 'This coupon code invalid';
+                        $amount = 0;
+                        $message = 'This coupon code is expired.';
                     }
                 } else {
-                    $discount = 0;
+                    $amount = 0;
                     $message = 'This coupon code does not exist.';
                 }
             } else {
-                $discount = 0;
+                $amount = 0;
             }
 
             return view('frontend.cart', [
                 'cartItems' => $cartItems,
-                'discount' => $discount,
+                'amount' => $amount,
+                'limit' => $limit,
                 'message' => $message,
+                'couponSuccess' => $couponSuccess,
+                'type' => $type,
             ]);
         } else {
             return redirect()->route('customer.reg')->with('customer_reg', 'You have to login first in order to proceed.');

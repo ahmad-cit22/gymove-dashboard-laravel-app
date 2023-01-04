@@ -62,7 +62,8 @@
                                                         </svg>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="{{ route('coupon.edit', $coupon->id) }}">Edit</a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('coupon.edit', $coupon->id) }}">Edit</a>
                                                         <button class="dropdown-item deleteBtn" id=""
                                                             value="{{ route('coupon.delete', $coupon->id) }}">Delete</button>
                                                     </div>
@@ -130,7 +131,8 @@
                                                         </svg>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="{{ route('coupon.restore', $trashedCoupon->id) }}">Restore</a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('coupon.restore', $trashedCoupon->id) }}">Restore</a>
                                                         <button class="dropdown-item deleteBtn"
                                                             value="{{ route('coupon.delete.force', $trashedCoupon->id) }}">Delete
                                                             Permanently</button>
@@ -211,9 +213,8 @@
 @endsection
 
 @section('footer_body')
-
-<script>
-     $('.deleteBtn').click(function() {
+    <script>
+        $('.deleteBtn').click(function() {
             let link = $(this).val();
             Swal.fire({
                 title: 'Are you sure?',
@@ -229,7 +230,7 @@
                 }
             })
         })
-</script>
+    </script>
 
     <script>
         $(document).ready(function() {
@@ -281,7 +282,7 @@
         </script>
     @endif
 
-    
+
     @if (session('updateSuccess'))
         <script>
             Swal.fire(
