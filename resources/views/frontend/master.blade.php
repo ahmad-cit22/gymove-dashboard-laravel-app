@@ -23,6 +23,7 @@
     <link href="{{ asset('frontend/css/plugins/slick.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/plugins/snackbar.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/plugins/themify.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="{{ asset('frontend/css/styles.css') }}" rel="stylesheet">
 
 </head>
@@ -518,6 +519,8 @@
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
     <!-- ============================================================== -->
     <!-- This page plugins -->

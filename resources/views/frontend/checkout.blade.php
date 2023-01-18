@@ -34,7 +34,7 @@
 
             <div class="row justify-content-between">
                 <div class="col-12 col-lg-7 col-md-12">
-                    <form action="{{ route('customer.update') }}" method="POST">
+                    <form action="{{ route('order.store') }}" method="POST">
                         <h5 class="mb-4 ft-medium">Billing Details</h5>
                         <div class="row mb-2">
 
@@ -56,7 +56,8 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label class="text-dark">Company</label>
-                                    <input type="text" class="form-control" placeholder="Company Name (optional)" name="company" />
+                                    <input type="text" class="form-control" placeholder="Company Name (optional)"
+                                        name="company" />
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -72,11 +73,14 @@
                                     <input type="text" class="form-control" placeholder="Address" name="address" />
                                 </div>
                             </div>
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                 <div class="form-group">
                                     <label class="text-dark">Country *</label>
-                                    <select class="custom-select" name="country">
+                                    <select class="custom-select country_id" name="country">
                                         <option value="">-- Select Country --</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -84,16 +88,17 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label class="text-dark">City / Town *</label>
-                                     <select class="custom-select" name="city">
+                                    <select class="custom-select city_id" name="city">
                                         <option value="">-- Select City --</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <div class="form-group">
                                     <label class="text-dark">ZIP / Postcode *</label>
-                                    <input type="text" class="form-control" placeholder="Zip / Postcode" name="zip" />
+                                    <input type="text" class="form-control" placeholder="Zip / Postcode"
+                                        name="zip" />
                                 </div>
                             </div>
 
@@ -174,15 +179,18 @@
                             <h6>Select Payment Method</h6>
                             <ul class="no-ul-list">
                                 <li>
-                                    <input id="c3" class="radio-custom" name="payment_method" type="radio" value="1">
+                                    <input id="c3" class="radio-custom" name="payment_method" type="radio"
+                                        value="1">
                                     <label for="c3" class="radio-custom-label">Cash on Delivery</label>
                                 </li>
                                 <li>
-                                    <input id="c4" class="radio-custom" name="payment_method" type="radio" value="2">
+                                    <input id="c4" class="radio-custom" name="payment_method" type="radio"
+                                        value="2">
                                     <label for="c4" class="radio-custom-label">Pay With SSLCommerz</label>
                                 </li>
                                 <li>
-                                    <input id="c5" class="radio-custom" name="payment_method" type="radio" value="3">
+                                    <input id="c5" class="radio-custom" name="payment_method" type="radio"
+                                        value="3">
                                     <label for="c5" class="radio-custom-label">Pay With Stripe</label>
                                 </li>
                             </ul>
@@ -197,19 +205,19 @@
                         <div class="card-body">
                             <ul class="list-group list-group-sm list-group-flush-y list-group-flush-x">
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
-                                    <span>Subtotal</span> <span class="ml-auto text-dark ft-medium">Tk
+                                    <span>Subtotal</span> <span class="ml-auto text-dark ft-medium">BDT
                                         {{ number_format(round($sub_total), 2) }}</span>
                                 </li>
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
-                                    <span>Charge</span> <span class="ml-auto text-dark ft-medium" id="charge">TK
+                                    <span>Charge</span> <span class="ml-auto text-dark ft-medium" id="charge">BDT
                                         0</span>
                                 </li>
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
-                                    <span>Discount</span> <span class="ml-auto text-dark ft-medium">TK
+                                    <span>Discount</span> <span class="ml-auto text-dark ft-medium">BDT
                                         {{ number_format(round(session('discount')), 2) }}</span>
                                 </li>
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
-                                    <span>Total</span> <span class="ml-auto text-dark ft-medium" id="grandTotal">TK
+                                    <span>Total</span> <span class="ml-auto text-dark ft-medium" id="grandTotal">BDT
                                         {{ number_format(round($total), 2) }}</span>
                                 </li>
                             </ul>
@@ -244,7 +252,34 @@
             $('#grandTotal').html('TK ' + grandTotal + '.00');
 
         })
+
+        $('.country_id').select2();
+        $('.city_id').select2();
     </script>
+
+    <script>
+        $('.country_id').change(function() {
+            var country_id = $(this).val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '/getCity',
+                data: {
+                    'country_id': country_id
+                },
+                success: function(data){
+                    $('.city_id').html(data);
+                }
+            })
+        })
+    </script>
+
     {{-- @if ($couponSuccess)
         <script>
             Swal.fire(

@@ -489,10 +489,10 @@
                                                 <div class="elis_rty">
                                                     @if ($product->discount)
                                                         <span
-                                                            class="ft-medium text-muted line-through fs-sm mr-2">&#2547;{{ $product->price }}</span>
+                                                            class="ft-medium text-muted line-through fs-sm mr-2">BDT {{ $product->price }}</span>
                                                     @endif
                                                     <span
-                                                        class="ft-bold theme-cl fs-md mr-2">&#2547;{{ $product->after_discount }}</span>
+                                                        class="ft-bold theme-cl fs-md mr-2">BDT {{ $product->after_discount }}</span>
                                                 </div>
                                             </div>
                                         </div>

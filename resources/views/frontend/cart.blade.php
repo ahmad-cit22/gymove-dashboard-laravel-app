@@ -146,20 +146,20 @@
                         <div class="card-body">
                             <ul class="list-group list-group-sm list-group-flush-y list-group-flush-x">
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
-                                    <span>Subtotal</span> <span class="ml-auto text-dark ft-medium">Tk
+                                    <span>Subtotal</span> <span class="ml-auto text-dark ft-medium">BDT
                                         {{ number_format(round($sub_total), 2) }}</span>
                                 </li>
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
                                     <span>Discount</span> <span class="ml-auto text-dark ft-medium">
                                         @if ($type == 1)
-                                        {{$amount}}% (TK {{ number_format(round($discount), 2) }})
+                                        {{$amount}}% (BDT {{ number_format(round($discount), 2) }})
                                         @else
-                                            TK {{ number_format(round($discount), 2) }}
+                                            BDT {{ number_format(round($discount), 2) }}
                                         @endif
                                     </span>
                                 </li>
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
-                                    <span>Total</span> <span class="ml-auto text-dark ft-medium">TK
+                                    <span>Total</span> <span class="ml-auto text-dark ft-medium">BDT
                                         {{ number_format(round($total), 2) }}</span>
                                 </li>
                                 <li class="list-group-item fs-sm text-center">

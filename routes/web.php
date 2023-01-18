@@ -111,3 +111,5 @@ Route::post('/cart/update', [CartController::class, 'cart_update'])->name('cart.
 
 //Checkout related routes
 Route::get('/checkout-page', [CheckoutController::class, 'checkout_view'])->name('checkout.view');
+Route::post('/getCity', [CheckoutController::class, 'getCity']);
+Route::post('/order/store', [CheckoutController::class, 'order_store'])->name('order.store');
