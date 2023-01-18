@@ -69,28 +69,32 @@ class CartController extends Controller
     function cart_view(Request $request)
     {
         if (Auth::guard('customerAuth')->check()) {
+
             $cartItems = Cart::where('customer_id', Auth::guard('customerAuth')->id())->get();
 
             $coupon = $request->coupon_code;
+            $couponBtn = $request->couponBtn;
             $message = '';
             $couponSuccess = '';
             $type = '';
             $limit = '';
 
             if ($coupon) {
-                if (Coupon::where('coupon_code', $coupon)->exists()) {
-                    if (Carbon::now()->format('Y-m-d') < Coupon::where('coupon_code', $coupon)->first()->validity) {
-                        $type = Coupon::where('coupon_code', $coupon)->first()->type;
-                        $amount = Coupon::where('coupon_code', $coupon)->first()->amount;
-                        $limit = Coupon::where('coupon_code', $coupon)->first()->limit;
-                        $couponSuccess = 'Coupon code applied successfully!';
+                if ($couponBtn) {
+                    if (Coupon::where('coupon_code', $coupon)->exists()) {
+                        if (Carbon::now()->format('Y-m-d') < Coupon::where('coupon_code', $coupon)->first()->validity) {
+                            $type = Coupon::where('coupon_code', $coupon)->first()->type;
+                            $amount = Coupon::where('coupon_code', $coupon)->first()->amount;
+                            $limit = Coupon::where('coupon_code', $coupon)->first()->limit;
+                            $couponSuccess = 'Coupon code applied successfully!';
+                        } else {
+                            $amount = 0;
+                            $message = 'This coupon code is expired.';
+                        }
                     } else {
                         $amount = 0;
-                        $message = 'This coupon code is expired.';
+                        $message = 'This coupon code does not exist.';
                     }
-                } else {
-                    $amount = 0;
-                    $message = 'This coupon code does not exist.';
                 }
             } else {
                 $amount = 0;

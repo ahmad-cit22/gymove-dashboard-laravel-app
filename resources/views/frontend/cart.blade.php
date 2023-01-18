@@ -105,7 +105,8 @@
                                                 name="coupon_code">
                                         </div>
                                         <div class="col-auto">
-                                            <button class="btn btn-dark" type="submit">Apply</button>
+                                            <button class="btn btn-dark" name="couponBtn" value="1"
+                                                type="submit">Apply</button>
                                         </div>
                                     </div>
                                     @if ($message)
@@ -136,9 +137,7 @@
                     $total = $sub_total - $discount;
                     
                     session([
-                        'sub_total' => $sub_total,
                         'discount' => $discount,
-                        'total' => $total,
                     ]);
                 @endphp
 
@@ -148,11 +147,16 @@
                             <ul class="list-group list-group-sm list-group-flush-y list-group-flush-x">
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
                                     <span>Subtotal</span> <span class="ml-auto text-dark ft-medium">Tk
-                                        {{ number_format($sub_total, 2) }}</span>
+                                        {{ number_format(round($sub_total), 2) }}</span>
                                 </li>
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
-                                    <span>Discount</span> <span class="ml-auto text-dark ft-medium">TK
-                                        {{ number_format($discount, 2) }}</span>
+                                    <span>Discount</span> <span class="ml-auto text-dark ft-medium">
+                                        @if ($type == 1)
+                                        {{$amount}}% (TK {{ number_format(round($discount), 2) }})
+                                        @else
+                                            TK {{ number_format(round($discount), 2) }}
+                                        @endif
+                                    </span>
                                 </li>
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
                                     <span>Total</span> <span class="ml-auto text-dark ft-medium">TK
