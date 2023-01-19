@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InvoiceMail;
 use App\Models\BillingDetails;
 use App\Models\Cart;
 use App\Models\City;
@@ -12,6 +13,7 @@ use App\Models\OrderProduct;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
@@ -28,7 +30,6 @@ class CheckoutController extends Controller
                 ]);
             } else {
                 return back()->with('checkoutFailed', 'Add your desired products to your cart first.');
-
             }
         } else {
             return redirect()->route('customer.reg')->with('customer_reg', 'You have to login first in order to proceed.');
@@ -81,7 +82,7 @@ class CheckoutController extends Controller
                 'sub_total' => $request->sub_total,
                 'discount' => $request->discount,
                 'charge' => $request->charge,
-                'total' => $request->total,
+                'total' => $request->total + $request->charge,
                 'payment_method' => $request->payment_method,
                 'created_at' => Carbon::now(),
             ]);
@@ -113,10 +114,12 @@ class CheckoutController extends Controller
                     'created_at' => Carbon::now(),
                 ]);
 
-                Inventory::where('product_id', $item->product_id)->where('color_id', $item->color_id)->where('size_id', $item->size_id)->decrement('quantity', $item->quantity);
+                // Inventory::where('product_id', $item->product_id)->where('color_id', $item->color_id)->where('size_id', $item->size_id)->decrement('quantity', $item->quantity);
             }
 
-            Cart::where('customer_id', Auth::guard('customerAuth')->id())->delete();
+            // Cart::where('customer_id', Auth::guard('customerAuth')->id())->delete();
+
+            Mail::to($request->email)->send(new InvoiceMail($order_id));
         } elseif ($request->payment_method === '2') {
             echo 'ssl';
         } else {

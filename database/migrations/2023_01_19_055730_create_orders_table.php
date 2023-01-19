@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('order_id');
             $table->integer('customer_id');
             $table->integer('sub_total');
-            $table->integer('discount')->nullable();
-            $table->integer('charge')->nullable();
+            $table->integer('discount')->default(0);
+            $table->integer('charge')->default(0);
             $table->integer('total');
             $table->integer('payment_method');
             $table->timestamps();
