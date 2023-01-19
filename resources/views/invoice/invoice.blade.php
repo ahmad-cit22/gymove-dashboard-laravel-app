@@ -251,10 +251,10 @@
                                                     width="52%" align="left">
                                                     Item
                                                 </th>
-                                                <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;"
+                                                {{-- <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;"
                                                     align="left">
                                                     <small>SKU</small>
-                                                </th>
+                                                </th> --}}
                                                 <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;"
                                                     align="center">
                                                     Quantity
@@ -275,10 +275,10 @@
                                                     <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #ff0000;  line-height: 18px;  vertical-align: top; padding:10px 0;"
                                                         class="article">{{ $orderItem->rel_to_product->product_name }}
                                                     </td>
-                                                    <td
+                                                    {{-- <td
                                                         style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;">
                                                         <small>MHDV2G/A</small>
-                                                    </td>
+                                                    </td> --}}
                                                     <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e;  line-height: 18px;  vertical-align: top; padding:10px 0;"
                                                         align="center">{{ $orderItem->quantity }}</td>
                                                     <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33;  line-height: 18px;  vertical-align: top; padding:10px 0;"
@@ -427,8 +427,14 @@
                                                             <tr>
                                                                 <td
                                                                     style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top; ">
-                                                                    Philip Brooks<br> Public Wales, Somewhere<br> New
-                                                                    York NY<br> 4468, United States<br> T: 202-555-0133
+                                                                    <strong>{{ $billingDetails->name }}</strong>
+                                                                    <br>
+                                                                    {{ $billingDetails->address }}<br>
+                                                                    {{ $billingDetails->rel_to_city->name }}<br>
+                                                                    {{ $billingDetails->zip }},
+                                                                    {{ $billingDetails->rel_to_country->name }}<br> T:
+                                                                    {{ $billingDetails->mobile_number }} <br>
+                                                                    {{ $billingDetails->email }}
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -450,16 +456,27 @@
                                                             <tr>
                                                                 <td width="100%" height="10"></td>
                                                             </tr>
-                                                            <tr>
-                                                                <td
-                                                                    style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top; ">
-                                                                    Credit Card<br> Credit Card Type: Visa<br> Worldpay
-                                                                    Transaction ID: <a href="#"
-                                                                        style="color: #ff0000; text-decoration:underline;">4185939336</a><br>
-                                                                    <a href="#" style="color:#b0b0b0;">Right of
-                                                                        Withdrawal</a>
-                                                                </td>
-                                                            </tr>
+                                                            @if ($orderDetails->payment_method !== 1)
+                                                                <tr>
+                                                                    <td
+                                                                        style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top; ">
+                                                                        Credit Card<br> Credit Card Type: Visa<br>
+                                                                        Worldpay
+                                                                        Transaction ID: <a href="#"
+                                                                            style="color: #ff0000; text-decoration:underline;">4185939336</a><br>
+                                                                        <a href="#" style="color:#b0b0b0;">Right
+                                                                            of
+                                                                            Withdrawal</a>
+                                                                    </td>
+                                                                </tr>
+                                                            @else
+                                                                <tr>
+                                                                    <td
+                                                                        style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top; ">
+                                                                        Cash On Delivery</td>
+                                                                </tr>
+                                                            @endif
+
                                                         </tbody>
                                                     </table>
                                                 </td>
@@ -468,7 +485,7 @@
                                     </table>
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td>
                                     <table width="480" border="0" cellpadding="0" cellspacing="0"
                                         align="center" class="fullPadding">
@@ -535,7 +552,7 @@
                                         </tbody>
                                     </table>
                                 </td>
-                            </tr>
+                            </tr> --}}
                             <tr class="hiddenMobile">
                                 <td height="60"></td>
                             </tr>
