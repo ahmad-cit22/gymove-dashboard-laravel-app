@@ -152,7 +152,7 @@
                                 <li class="list-group-item d-flex text-dark fs-sm ft-regular">
                                     <span>Discount</span> <span class="ml-auto text-dark ft-medium">
                                         @if ($type == 1)
-                                        {{$amount}}% (BDT {{ number_format(round($discount), 2) }})
+                                            {{ $amount }}% (BDT {{ number_format(round($discount), 2) }})
                                         @else
                                             BDT {{ number_format(round($discount), 2) }}
                                         @endif
@@ -169,7 +169,8 @@
                         </div>
                     </div>
 
-                    <a class="btn btn-block btn-dark mb-3" href="{{ route('checkout.view') }}">Proceed to Checkout</a>
+                    <a class="btn btn-block btn-dark mb-3" href="{{ route('checkout.view') }}">Proceed to
+                        Checkout</a>
 
                     <a class="btn-link text-dark ft-medium" href="{{ url('/') }}">
                         <i class="ti-back-left mr-2"></i> Continue Shopping
@@ -189,6 +190,16 @@
                 'Done!',
                 "{{ session('updateSuccess') }}",
                 'success'
+            )
+        </script>
+    @endif
+  
+    @if (session('checkoutFailed'))
+        <script>
+            Swal.fire(
+                'Checkout failed!',
+                "<p class='text-danger'>Your cart is now empty!</p>{{ session('checkoutFailed') }}",
+                'warning'
             )
         </script>
     @endif
