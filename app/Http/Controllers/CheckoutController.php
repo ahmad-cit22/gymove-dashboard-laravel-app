@@ -114,10 +114,9 @@ class CheckoutController extends Controller
                     'created_at' => Carbon::now(),
                 ]);
 
-                // Inventory::where('product_id', $item->product_id)->where('color_id', $item->color_id)->where('size_id', $item->size_id)->decrement('quantity', $item->quantity);
+                Inventory::where('product_id', $item->product_id)->where('color_id', $item->color_id)->where('size_id', $item->size_id)->decrement('quantity', $item->quantity);
             }
-
-            // Cart::where('customer_id', Auth::guard('customerAuth')->id())->delete();
+            Cart::where('customer_id', Auth::guard('customerAuth')->id())->delete();
 
             Mail::to($request->email)->send(new InvoiceMail($order_id));
         } elseif ($request->payment_method === '2') {
@@ -126,7 +125,11 @@ class CheckoutController extends Controller
             echo 'str';
         }
 
+        return redirect()->route('order.success')->with('orderSuccess', 'Order placed successfully!');
+    }
 
-        return back()->with('orderSuccess', 'Order placed successfully! Thanks a lot.');
+    function order_success()
+    {
+        return view('frontend.orderSuccess');
     }
 }
