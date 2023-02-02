@@ -15,6 +15,16 @@ class Customer extends Authenticatable
 
     protected $guard = 'customerAuth';
 
+    function rel_to_city()
+    {
+        return $this->belongsTo(City::class, 'city');
+    }
+
+    function rel_to_country()
+    {
+        return $this->belongsTo(Country::class, 'country');
+    }
+
     protected $hidden = [
         'password',
         'remember_token',

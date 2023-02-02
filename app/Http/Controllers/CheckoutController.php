@@ -54,7 +54,6 @@ class CheckoutController extends Controller
             [
                 'name' => 'required|regex:/^[a-zA-Z\s]+$/',
                 'email' => 'required|email:rfc,dns',
-                'email' => 'required|email:rfc,dns',
                 'mobile_number' => 'required',
                 'address' => 'required',
                 'city' => 'required',
@@ -64,6 +63,8 @@ class CheckoutController extends Controller
             ],
             [
                 'name.regex' => "Name can't contain numbers or symbols!",
+                'country.required' => "Please select your country.",
+                'city.required' => "Please select your city.",
                 'charge.required' => "Please select your delivery location.",
                 'payment_method.required' => "Please select your payment method.",
             ]
@@ -74,6 +75,7 @@ class CheckoutController extends Controller
         $order_id = '#' . Str::upper($subStr) . '-' . rand(1000000, 9999999);
 
         $cartItems = Cart::where('customer_id', Auth::guard('customerAuth')->id())->get();
+        $total = $request->total + $request->charge;
 
         if ($request->payment_method === '1') {
             Order::insert([
@@ -82,7 +84,7 @@ class CheckoutController extends Controller
                 'sub_total' => $request->sub_total,
                 'discount' => $request->discount,
                 'charge' => $request->charge,
-                'total' => $request->total + $request->charge,
+                'total' =>  $total,
                 'payment_method' => $request->payment_method,
                 'created_at' => Carbon::now(),
             ]);
@@ -118,14 +120,38 @@ class CheckoutController extends Controller
             }
             Cart::where('customer_id', Auth::guard('customerAuth')->id())->delete();
 
+            // mail sending
             Mail::to($request->email)->send(new InvoiceMail($order_id));
+
+            //sms sending api
+            $url = "http://bulksmsbd.net/api/smsapi";
+            $api_key = "Pojzn1smeSdqqmAnOfrD";
+            $senderid = "nafisweb22";
+            $number = $request->mobile_number;
+            $message = "Order placed successfully. The order ID is - " . $order_id . " and you have to pay BDT " .  $total . " only. Thank you for being with us.";
+
+            $data = [
+                "api_key" => $api_key,
+                "senderid" => $senderid,
+                "number" => $number,
+                "message" => $message
+            ];
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            return redirect()->route('order.success')->with('orderSuccess', 'Order placed successfully!');
+
         } elseif ($request->payment_method === '2') {
             echo 'ssl';
         } else {
             echo 'str';
         }
-
-        return redirect()->route('order.success')->with('orderSuccess', 'Order placed successfully!');
     }
 
     function order_success()

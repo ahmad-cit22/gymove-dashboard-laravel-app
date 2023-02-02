@@ -5,12 +5,12 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CustomerProfileController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\WishlistController;
 use Illuminate\Routing\Events\Routing;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -100,6 +100,9 @@ Route::post('/customer-reg', [CustomerController::class, 'customer_signup'])->na
 Route::post('/customer/update', [CustomerController::class, 'customer_update'])->name('customer.update');
 Route::post('/customer-login', [CustomerController::class, 'customer_login'])->name('customer.login');
 Route::get('/customer-logout', [CustomerController::class, 'customer_logout'])->name('customer.logout');
+Route::get('/customer/profile/view', [CustomerProfileController::class, 'customer_profile_view'])->name('customer.profile.view');
+Route::post('/customer/profile/update', [CustomerProfileController::class, 'customer_profile_update'])->name('customer.profile.update');
+Route::get('/customer/orders', [CustomerProfileController::class, 'customer_orders_view'])->name('customer.orders');
 
 //Cart and Wishlist related routes
 Route::post('/cart-wishlist/store/{product_id}', [CartController::class, 'cart_wishlist_store'])->name('cart.wishlist.store');

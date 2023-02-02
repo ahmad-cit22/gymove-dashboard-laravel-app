@@ -19,8 +19,12 @@ return new class extends Migration
             $table->string('profile_picture')->nullable();
             $table->string('email');
             $table->string('password');
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
             $table->string('address')->nullable();
+            $table->integer('phone_code')->nullable();
             $table->integer('phone_number')->nullable();
+            $table->integer('zip_code')->nullable();
             $table->timestamps();
         });
     }
