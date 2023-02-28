@@ -85,7 +85,7 @@
                                             class="fas fa-caret-down ml-1"></i>
                                     </p>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{route('customer.profile.view')}}">Profile</a>
+                                        <a class="dropdown-item" href="{{ route('customer.profile.view') }}">Profile</a>
                                         <a class="dropdown-item" href="{{ route('customer.logout') }}">Log Out</a>
                                     </div>
                                 </div>
@@ -195,6 +195,8 @@
                                 <li><a href="#">Shop</a></li>
                                 <li><a href="#">About Us</a></li>
                                 <li><a href="#">Contact</a></li>
+                                <li><a {{ Auth::guard('customerAuth')->check() ? '' : 'hidden' }}
+                                        href="{{ route('customer.profile.view') }}">Profile</a></li>
                             </ul>
                         </div>
                     </div>

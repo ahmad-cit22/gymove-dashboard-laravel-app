@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('charge')->default(0);
             $table->integer('total');
             $table->integer('payment_method');
+            $table->integer('order_status')->default(1);
             $table->timestamps();
         });
     }

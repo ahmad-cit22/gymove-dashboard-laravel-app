@@ -8,7 +8,9 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerProfileController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SSLCommerzPaymentController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Routing\Events\Routing;
@@ -86,6 +88,13 @@ Route::get('/coupons/delete/{coupon_id}', [CouponController::class, 'coupon_dele
 Route::get('/coupons/force-delete/{coupon_id}', [CouponController::class, 'coupon_delete_force'])->name('coupon.delete.force');
 Route::get('/coupons/restore/{coupon_id}', [CouponController::class, 'coupon_restore'])->name('coupon.restore');
 
+//orders related routes
+Route::get('/orders', [OrderController::class, 'orders_view'])->name('orders.view');
+Route::post('/order-status/update/{order_id}', [OrderController::class, 'order_status_update'])->name('orderStatus.update');
+
+
+
+
 // frontend pages routes
 Route::get('/', [FrontendController::class, 'index']);
 
@@ -117,3 +126,26 @@ Route::get('/checkout-page', [CheckoutController::class, 'checkout_view'])->name
 Route::post('/getCity', [CheckoutController::class, 'getCity']);
 Route::post('/order/store', [CheckoutController::class, 'order_store'])->name('order.store');
 Route::get('/order/success', [CheckoutController::class, 'order_success'])->name('order.success');
+
+// SSLCOMMERZ Start
+// Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+// Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::get('/pay', [SSLCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
+
+//no copy
+// Route::controller(StripePaymentController::class)->group(function () {
+//     Route::get('stripe', 'stripe');
+//     Route::post('stripe', 'stripePost')->name('stripe.post');
+// });
+
+// //Review
+// Route::post('/review/{product_id}', [FrontendController::class, 'review'])->name('review');

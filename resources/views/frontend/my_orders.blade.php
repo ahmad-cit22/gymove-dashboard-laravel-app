@@ -72,8 +72,25 @@
                                 </div>
                                 <div class="col-xl-2 col-lg-2 col-md-2 col-12 ml-auto">
                                     <p class="mb-1 p-0"><span class="text-muted">Order Status</span></p>
-                                    <div class="delv_status"><span
-                                            class="ft-medium small text-info bg-light-info rounded px-3 py-1">Confirmed</span>
+                                    <div class="delv_status">
+                                        @php
+                                            if ($order->order_status == 1) {
+                                                echo '<span class="badge badge-info">Placed</span>';
+                                            } elseif ($order->order_status == 2) {
+                                                echo '<span class="badge badge-success">Confirmed</span>';
+                                            } elseif ($order->order_status == 3) {
+                                                echo '<span class="badge badge-warning">Processing</span>';
+                                            } elseif ($order->order_status == 4) {
+                                                echo '<span class="badge badge-dark">Shipped</span>';
+                                            } elseif ($order->order_status == 5) {
+                                                echo '<span class="badge badge-success">Ready to
+                                                                                                                    Deliver</span>';
+                                            } elseif ($order->order_status == 6) {
+                                                echo '<span class="badge badge-dark">Delivered</span>';
+                                            } else {
+                                                echo '<span class="badge badge-danger">Canceled</span>';
+                                            }
+                                        @endphp
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +105,8 @@
                                         <div class="col-xl-5 col-lg-5 col-md-5 col-12">
                                             <div class="cart_single d-flex align-items-start mfliud-bot">
                                                 <div class="cart_selected_single_thumb">
-                                                    <a href="#"><img
+                                                    <a
+                                                        href="{{ route('product.single', $product->rel_to_product->slug) }}"><img
                                                             src="{{ asset('uploads/productPreview/' . $product->rel_to_product->preview) }}"
                                                             width="75" class="img-fluid rounded" alt=""></a>
                                                 </div>
@@ -96,8 +114,9 @@
                                                     <p class="mb-0"><span class="text-muted small">
                                                             {{ $product->rel_to_product->rel_to_subcategory->subcategory_name }}</span>
                                                     </p>
-                                                    <h4 class="product_title fs-sm ft-medium mb-1 lh-1">
-                                                        {{ $product->rel_to_product->product_name }}
+                                                    <h4 class="product_title fs-sm ft-medium mb-1 lh-1"><a
+                                                            href="{{ route('product.single', $product->rel_to_product->slug) }}">
+                                                            {{ $product->rel_to_product->product_name }}</a>
                                                     </h4>
                                                     <p class="mb-2"><span class="text-dark medium">Size:
                                                             {{ $product->rel_to_size->size_name }}</span>, <span

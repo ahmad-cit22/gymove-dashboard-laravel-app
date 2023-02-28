@@ -33,9 +33,15 @@
                             </div>
                             <div class="dash_caption">
                                 <h4 class="fs-md ft-medium mb-0 lh-1"> {{ Auth::guard('customerAuth')->user()->name }}</h4>
-                                <span
-                                    class="text-muted smalls">{{ Auth::guard('customerAuth')->user()->rel_to_city->name }},
-                                    {{ Auth::guard('customerAuth')->user()->rel_to_country->name }}</span>
+                                <span class="text-muted smalls mt-3">
+                                    @php
+                                        if (Auth::guard('customerAuth')->user()->city) {
+                                            echo Auth::guard('customerAuth')->user()->rel_to_city->name . ', ' . Auth::guard('customerAuth')->user()->rel_to_country->name;
+                                        } else {
+                                            echo 'Please update your profile informations.';
+                                        }
+                                    @endphp
+                                </span>
                             </div>
                         </div>
 

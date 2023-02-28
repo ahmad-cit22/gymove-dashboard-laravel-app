@@ -116,39 +116,39 @@ class CheckoutController extends Controller
                     'created_at' => Carbon::now(),
                 ]);
 
-                Inventory::where('product_id', $item->product_id)->where('color_id', $item->color_id)->where('size_id', $item->size_id)->decrement('quantity', $item->quantity);
+                // Inventory::where('product_id', $item->product_id)->where('color_id', $item->color_id)->where('size_id', $item->size_id)->decrement('quantity', $item->quantity);
             }
-            Cart::where('customer_id', Auth::guard('customerAuth')->id())->delete();
+            // Cart::where('customer_id', Auth::guard('customerAuth')->id())->delete();
 
             // mail sending
-            Mail::to($request->email)->send(new InvoiceMail($order_id));
+            // Mail::to($request->email)->send(new InvoiceMail($order_id));
 
             //sms sending api
-            $url = "http://bulksmsbd.net/api/smsapi";
-            $api_key = "Pojzn1smeSdqqmAnOfrD";
-            $senderid = "nafisweb22";
-            $number = $request->mobile_number;
-            $message = "Order placed successfully. The order ID is - " . $order_id . " and you have to pay BDT " .  $total . " only. Thank you for being with us.";
+            // $url = "http://bulksmsbd.net/api/smsapi";
+            // $api_key = "Pojzn1smeSdqqmAnOfrD";
+            // $senderid = "nafisweb22";
+            // $number = $request->mobile_number;
+            // $message = "Dear customer, your order has been placed successfully. The order ID is - " . $order_id . " and you have to pay BDT " .  $total . " only. Thank you for being with us.";
 
-            $data = [
-                "api_key" => $api_key,
-                "senderid" => $senderid,
-                "number" => $number,
-                "message" => $message
-            ];
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            $response = curl_exec($ch);
-            curl_close($ch);
+            // $data = [
+            //     "api_key" => $api_key,
+            //     "senderid" => $senderid,
+            //     "number" => $number,
+            //     "message" => $message
+            // ];
+            // $ch = curl_init();
+            // curl_setopt($ch, CURLOPT_URL, $url);
+            // curl_setopt($ch, CURLOPT_POST, 1);
+            // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            // $response = curl_exec($ch);
+            // curl_close($ch);
 
             return redirect()->route('order.success')->with('orderSuccess', 'Order placed successfully!');
-
         } elseif ($request->payment_method === '2') {
-            echo 'ssl';
+            $checkout_info = $request->all();
+            return redirect('/pay')->with('checkout_info', $checkout_info);
         } else {
             echo 'str';
         }
