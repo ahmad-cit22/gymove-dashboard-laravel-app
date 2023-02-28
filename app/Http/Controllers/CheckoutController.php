@@ -150,7 +150,8 @@ class CheckoutController extends Controller
             $checkout_info = $request->all();
             return redirect('/pay')->with('checkout_info', $checkout_info);
         } else {
-            echo 'str';
+            $checkout_info = $request->all();
+            return redirect('/stripe')->with('checkout_info', $checkout_info);
         }
     }
 

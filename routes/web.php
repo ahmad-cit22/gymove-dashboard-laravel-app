@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SSLCommerzPaymentController;
+use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Routing\Events\Routing;
@@ -141,11 +142,9 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
 
-//no copy
-// Route::controller(StripePaymentController::class)->group(function () {
-//     Route::get('stripe', 'stripe');
-//     Route::post('stripe', 'stripePost')->name('stripe.post');
-// });
-
+Route::controller(StripePaymentController::class)->group(function () {
+    Route::get('stripe', 'stripe');
+    Route::post('stripe', 'stripePost')->name('stripe.post');
+});
 // //Review
 // Route::post('/review/{product_id}', [FrontendController::class, 'review'])->name('review');
