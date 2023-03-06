@@ -114,6 +114,12 @@ Route::get('/customer/profile/view', [CustomerProfileController::class, 'custome
 Route::post('/customer/profile/update', [CustomerProfileController::class, 'customer_profile_update'])->name('customer.profile.update');
 Route::get('/customer/orders', [CustomerProfileController::class, 'customer_orders_view'])->name('customer.orders');
 
+Route::get('/customer/password-reset', [CustomerController::class, 'customer_password_reset'])->name('customer.password.reset');
+Route::post('/customer/password-reset', [CustomerController::class, 'password_reset'])->name('customer.password.reset');
+Route::get('/customer/password-reset/form/{token}', [CustomerController::class, 'password_reset_form'])->name('customer.password.reset.form');
+Route::post('/customer/password-reset/form/{token}', [CustomerController::class, 'password_reset_form_handle'])->name('customer.password.reset.handle');
+
+
 //Cart and Wishlist related routes
 Route::post('/cart-wishlist/store/{product_id}', [CartController::class, 'cart_wishlist_store'])->name('cart.wishlist.store');
 Route::get('/cart/remove/{cart_id}', [CartController::class, 'cart_remove'])->name('cart.remove');

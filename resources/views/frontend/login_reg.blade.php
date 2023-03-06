@@ -52,7 +52,7 @@
                         <div class="form-group">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="eltio_k2">
-                                    <a href="#">Lost Your Password?</a>
+                                    <a href="{{ route('customer.password.reset') }}">Lost Your Password?</a>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +153,7 @@
             )
         </script>
     @endif
-   
+
     @if (session('logoutSuccess'))
         <script>
             Swal.fire(
@@ -163,4 +163,45 @@
             )
         </script>
     @endif
+    
+    @if (session('resetSuccess'))
+        <script>
+            Swal.fire(
+                'Done!',
+                "{{ session('resetSuccess') }}",
+                'success'
+            )
+        </script>
+    @endif
+
+     @if (session('tokenError'))
+        <script>
+            Swal.fire(
+                'Sorry!',
+                "{{ session('tokenError') }}",
+                'warning'
+            )
+        </script>
+    @endif
+
+     @if (session('usedLink'))
+        <script>
+            Swal.fire(
+                'Sorry!',
+                "{{ session('usedLink') }}",
+                'warning'
+            )
+        </script>
+    @endif
+
+    @if (session('validityOver'))
+        <script>
+            Swal.fire(
+                'Sorry!',
+                "{{ session('validityOver') }}",
+                'warning'
+            )
+        </script>
+    @endif
+
 @endsection
